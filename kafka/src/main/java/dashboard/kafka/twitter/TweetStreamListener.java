@@ -15,19 +15,18 @@ public class TweetStreamListener implements StreamListener {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private int multiplier;
 
     private Producer<String, String> producer;
 
-    public TweetStreamListener(Producer<String, String> producer, int multiplier) {
+    private ObjectMapper objectMapper;
+
+    public TweetStreamListener(Producer<String, String> producer, ObjectMapper objectMapper) {
         this.producer = producer;
-        this.multiplier = multiplier;
+        this.objectMapper = objectMapper;
     }
 
     @Override
     public void onTweet(Tweet tweet) {
-
-        ObjectMapper objectMapper = new ObjectMapper();
 
         try {
             String tweetAsJSON = objectMapper.writeValueAsString(tweet);

@@ -1,5 +1,6 @@
 package dashboard.kafka.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import kafka.producer.ProducerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +47,11 @@ public class AppConfig {
         props.put("producer.type", environment.getProperty("producer.type"));
 
         return new ProducerConfig(props);
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 
 }
