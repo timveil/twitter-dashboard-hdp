@@ -14,9 +14,10 @@ import storm.kafka.ZkHosts;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Configuration
-@PropertySource("classpath:storm.properties")
+@PropertySource(value = {"classpath:storm.properties", "classpath:kafka.properties"})
 public class AppConfig {
 
     private final Logger log = LoggerFactory.getLogger(getClass());

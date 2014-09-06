@@ -13,6 +13,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.core.env.Environment;
 import storm.kafka.KafkaSpout;
 import storm.kafka.SpoutConfig;
+import storm.kafka.bolt.KafkaBolt;
+
+import java.util.HashMap;
 
 public class Harness {
 
@@ -22,7 +25,7 @@ public class Harness {
 
         ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
 
-        Environment environment = ctx.getEnvironment();
+        final Environment environment = ctx.getEnvironment();
 
         if (log.isDebugEnabled()) {
             log.debug(environment.toString());
@@ -32,20 +35,21 @@ public class Harness {
 
         TopologyBuilder topologyBuilder = new TopologyBuilder();
         topologyBuilder.setSpout(environment.getProperty("spout.name"), kafkaSpout);
+        topologyBuilder.setBolt(environment.getProperty("bolt.tweet.name"), new TweetBolt()).shuffleGrouping(environment.getProperty("spout.name"));
 
         Config stormConfig = buildStormConfig(environment);
 
-/*        stormConfig.put(KafkaBolt.KAFKA_BROKER_PROPERTIES, new HashMap<String, String>() {{
-            put("metadata.broker.list", topology_properties.getProperty("metadata.broker.list"));
-            put("serializer.class", "kafka.serializer.StringEncoder");
-            put("request.required.acks", "1");
-            put("producer.type", "async");
-        }});*/
+        stormConfig.put(KafkaBolt.KAFKA_BROKER_PROPERTIES, new HashMap<String, String>() {{
+            put("metadata.broker.list", environment.getProperty("metadata.broker.list"));
+            put("serializer.class", environment.getProperty("serializer.class"));
+            put("request.required.acks", environment.getProperty("request.required.acks"));
+            put("producer.type", environment.getProperty("producer.type"));
+        }});
 
         try {
             StormSubmitter.submitTopology(environment.getProperty("storm.topology.name"), stormConfig, topologyBuilder.createTopology());
         } catch (AlreadyAliveException | InvalidTopologyException e) {
-            log.error("error", e);
+            log.error("error building or submitting topology", e);
         }
 
     }
