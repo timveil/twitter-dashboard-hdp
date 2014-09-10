@@ -2,7 +2,6 @@ package dashboard.kafka;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.yammer.metrics.Metrics;
 import com.yammer.metrics.core.MetricPredicate;
 import com.yammer.metrics.reporting.ConsoleReporter;
