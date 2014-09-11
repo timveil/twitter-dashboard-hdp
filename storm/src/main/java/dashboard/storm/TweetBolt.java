@@ -14,11 +14,17 @@ public class TweetBolt extends BaseBasicBolt {
 
     @Override
     public void execute(Tuple input, BasicOutputCollector collector) {
+        if (log.isDebugEnabled()) {
+            log.debug("calling execute");
+        }
+
         log.debug(input.toString());
     }
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-
+        if (log.isDebugEnabled()) {
+            log.debug("calling declareOutputFields");
+        }
     }
 }

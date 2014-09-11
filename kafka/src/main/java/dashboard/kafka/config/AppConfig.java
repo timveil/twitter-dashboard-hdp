@@ -15,7 +15,7 @@ import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import java.util.Properties;
 
 @Configuration
-@PropertySource("classpath:kafka.properties")
+@PropertySource(value = {"classpath:twitter.properties", "classpath:kafka.properties"})
 public class AppConfig {
 
     private final Logger log = LoggerFactory.getLogger(getClass());

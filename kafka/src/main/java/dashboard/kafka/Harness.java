@@ -17,6 +17,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.social.twitter.api.Stream;
 import org.springframework.social.twitter.api.Twitter;
 
+import java.text.NumberFormat;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -33,10 +34,11 @@ public class Harness {
             log.debug(environment.toString());
         }
 
-        Integer duration = environment.getProperty("twitter.ingest.duration.milliseconds", Integer.class);
+        Integer durationInMinutes = environment.getProperty("twitter.ingest.duration.minutes", Integer.class);
+        Integer durationInMilliseconds = durationInMinutes * 60 * 1000;
 
         if (log.isDebugEnabled()) {
-            log.debug("app will ingest twitter data for " + duration + " milliseconds!");
+            log.debug("app will ingest twitter data for " + NumberFormat.getNumberInstance().format(durationInMilliseconds) + " milliseconds or " + durationInMinutes + " minutes!");
         }
 
         ProducerConfig config = ctx.getBean(ProducerConfig.class);
@@ -50,13 +52,13 @@ public class Harness {
         Stream twitterStream = null;
 
         ConsoleReporter reporter = new ConsoleReporter(Metrics.defaultRegistry(), System.out, MetricPredicate.ALL);
-        reporter.start(5, TimeUnit.MINUTES);
+        reporter.start(1, TimeUnit.MINUTES);
 
         try {
 
             twitterStream = twitter.streamingOperations().sample(listeners);
 
-            Thread.sleep(duration);
+            Thread.sleep(durationInMilliseconds);
 
         } catch (InterruptedException e) {
             log.error("stream thread interrupted...", e);
