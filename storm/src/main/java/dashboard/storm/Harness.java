@@ -4,7 +4,9 @@ import backtype.storm.Config;
 import backtype.storm.StormSubmitter;
 import backtype.storm.generated.AlreadyAliveException;
 import backtype.storm.generated.InvalidTopologyException;
+import backtype.storm.topology.BoltDeclarer;
 import backtype.storm.topology.TopologyBuilder;
+import dashboard.storm.bolts.TweetBolt;
 import dashboard.storm.config.AppConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +37,9 @@ public class Harness {
 
         TopologyBuilder topologyBuilder = new TopologyBuilder();
         topologyBuilder.setSpout(environment.getProperty("spout.name"), kafkaSpout);
-        topologyBuilder.setBolt(environment.getProperty("bolt.tweet.name"), new TweetBolt()).shuffleGrouping(environment.getProperty("spout.name"));
+
+        BoltDeclarer boltDeclarer = topologyBuilder.setBolt(environment.getProperty("bolt.tweet.name"), new TweetBolt());
+        boltDeclarer.shuffleGrouping(environment.getProperty("spout.name"));
 
         Config stormConfig = buildStormConfig(environment);
 
@@ -51,6 +55,7 @@ public class Harness {
         } catch (AlreadyAliveException | InvalidTopologyException e) {
             log.error("error building or submitting topology", e);
         }
+
 
     }
 

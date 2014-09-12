@@ -1,5 +1,6 @@
 package dashboard.storm.config;
 
+import backtype.storm.spout.SchemeAsMultiScheme;
 import com.google.common.base.Joiner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import storm.kafka.BrokerHosts;
 import storm.kafka.SpoutConfig;
+import storm.kafka.StringScheme;
 import storm.kafka.ZkHosts;
 
 import java.util.Arrays;
@@ -37,6 +39,10 @@ public class AppConfig {
                 environment.getProperty("spout.zookeeper.root"),
                 environment.getProperty("spout.id")
         );
+
+        config.scheme = new SchemeAsMultiScheme(new StringScheme());
+        config.zkPort = 2181;
+        config.zkServers = zookeepers;
 
         return config;
 

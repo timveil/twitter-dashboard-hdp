@@ -1,5 +1,6 @@
-package dashboard.storm;
+package dashboard.storm.bolts;
 
+import backtype.storm.task.OutputCollector;
 import backtype.storm.topology.BasicOutputCollector;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.topology.base.BaseBasicBolt;
@@ -10,7 +11,6 @@ import org.slf4j.LoggerFactory;
 public class TweetBolt extends BaseBasicBolt {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
-
 
     @Override
     public void execute(Tuple input, BasicOutputCollector collector) {
