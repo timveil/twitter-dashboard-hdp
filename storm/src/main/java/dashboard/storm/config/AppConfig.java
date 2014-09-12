@@ -41,7 +41,7 @@ public class AppConfig {
         );
 
         config.scheme = new SchemeAsMultiScheme(new StringScheme());
-        config.zkPort = 2181;
+        config.zkPort = Integer.parseInt(environment.getProperty("spout.zookeeper.port"));
         config.zkServers = zookeepers;
 
         return config;
