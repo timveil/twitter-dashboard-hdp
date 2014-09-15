@@ -38,5 +38,6 @@ com_crashlytics_export_strings.xml
 /kafka/target/
 /storm/target/
 
+*.log
 
 
