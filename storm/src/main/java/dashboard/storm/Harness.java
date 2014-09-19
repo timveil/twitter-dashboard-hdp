@@ -4,10 +4,10 @@ import backtype.storm.Config;
 import backtype.storm.StormSubmitter;
 import backtype.storm.generated.AlreadyAliveException;
 import backtype.storm.generated.InvalidTopologyException;
-import backtype.storm.topology.BoltDeclarer;
 import backtype.storm.topology.TopologyBuilder;
 import dashboard.storm.bolts.TweetBolt;
 import dashboard.storm.config.AppConfig;
+import org.apache.storm.hdfs.bolt.HdfsBolt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -30,16 +30,16 @@ public class Harness {
         final Environment environment = ctx.getEnvironment();
 
         if (log.isDebugEnabled()) {
-            log.debug(environment.toString());
+            log.debug("environment config:   " + environment.toString());
         }
 
         KafkaSpout kafkaSpout = new KafkaSpout(ctx.getBean(SpoutConfig.class));
+        HdfsBolt hdfsBolt = ctx.getBean(HdfsBolt.class);
 
         TopologyBuilder topologyBuilder = new TopologyBuilder();
         topologyBuilder.setSpout(environment.getProperty("spout.name"), kafkaSpout);
-
-        BoltDeclarer boltDeclarer = topologyBuilder.setBolt(environment.getProperty("bolt.tweet.name"), new TweetBolt());
-        boltDeclarer.shuffleGrouping(environment.getProperty("spout.name"));
+        topologyBuilder.setBolt(environment.getProperty("bolt.tweet.name"), new TweetBolt()).shuffleGrouping(environment.getProperty("spout.name"));
+        topologyBuilder.setBolt(environment.getProperty("bolt.hdfs.name"), hdfsBolt).shuffleGrouping(environment.getProperty("bolt.tweet.name"));
 
         Config stormConfig = buildStormConfig(environment);
 

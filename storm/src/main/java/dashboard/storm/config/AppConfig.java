@@ -2,6 +2,15 @@ package dashboard.storm.config;
 
 import backtype.storm.spout.SchemeAsMultiScheme;
 import com.google.common.base.Joiner;
+import org.apache.storm.hdfs.bolt.HdfsBolt;
+import org.apache.storm.hdfs.bolt.format.DefaultFileNameFormat;
+import org.apache.storm.hdfs.bolt.format.DelimitedRecordFormat;
+import org.apache.storm.hdfs.bolt.format.FileNameFormat;
+import org.apache.storm.hdfs.bolt.format.RecordFormat;
+import org.apache.storm.hdfs.bolt.rotation.FileRotationPolicy;
+import org.apache.storm.hdfs.bolt.rotation.FileSizeRotationPolicy;
+import org.apache.storm.hdfs.bolt.sync.CountSyncPolicy;
+import org.apache.storm.hdfs.bolt.sync.SyncPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +57,24 @@ public class AppConfig {
 
     }
 
+    @Bean
+    public HdfsBolt buildHdfsBolt() {
+        RecordFormat format = new DelimitedRecordFormat().withFieldDelimiter("|");
+
+        SyncPolicy syncPolicy = new CountSyncPolicy(1000);
+
+        FileRotationPolicy rotationPolicy = new FileSizeRotationPolicy(5.0f, FileSizeRotationPolicy.Units.MB);
+
+        FileNameFormat fileNameFormat = new DefaultFileNameFormat().withPath(environment.getProperty("bolt.hdfs.path"));
+
+        HdfsBolt bolt = new HdfsBolt()
+                .withFsUrl(environment.getProperty("bolt.hdfs.fs.url"))
+                .withFileNameFormat(fileNameFormat)
+                .withRecordFormat(format)
+                .withRotationPolicy(rotationPolicy)
+                .withSyncPolicy(syncPolicy);
+
+        return bolt;
+    }
 
 }
