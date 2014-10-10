@@ -1,7 +1,10 @@
 package dashboard.storm.config;
 
 import backtype.storm.spout.SchemeAsMultiScheme;
+import backtype.storm.tuple.Fields;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
+import dashboard.storm.bolts.TweetScheme;
 import org.apache.storm.hdfs.bolt.HdfsBolt;
 import org.apache.storm.hdfs.bolt.format.DefaultFileNameFormat;
 import org.apache.storm.hdfs.bolt.format.DelimitedRecordFormat;
@@ -49,7 +52,7 @@ public class AppConfig {
                 environment.getProperty("spout.id")
         );
 
-        config.scheme = new SchemeAsMultiScheme(new StringScheme());
+        config.scheme = new SchemeAsMultiScheme(new TweetScheme(objectMapper()));
         config.zkPort = Integer.parseInt(environment.getProperty("spout.zookeeper.port"));
         config.zkServers = zookeepers;
 
@@ -59,7 +62,7 @@ public class AppConfig {
 
     @Bean
     public HdfsBolt buildHdfsBolt() {
-        RecordFormat format = new DelimitedRecordFormat().withFieldDelimiter("|");
+        RecordFormat format = new DelimitedRecordFormat().withFields(new Fields(TweetScheme.TWEET_AS_JSON)).withFieldDelimiter("|");
 
         SyncPolicy syncPolicy = new CountSyncPolicy(1000);
 
@@ -75,6 +78,12 @@ public class AppConfig {
                 .withSyncPolicy(syncPolicy);
 
         return bolt;
+    }
+
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 
 }

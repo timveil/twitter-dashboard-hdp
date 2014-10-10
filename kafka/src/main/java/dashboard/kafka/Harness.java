@@ -1,6 +1,5 @@
 package dashboard.kafka;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.yammer.metrics.Metrics;
 import com.yammer.metrics.core.MetricPredicate;
@@ -15,6 +14,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.social.twitter.api.Stream;
+import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.Twitter;
 
 import java.text.NumberFormat;
@@ -43,11 +43,10 @@ public class Harness {
 
         ProducerConfig config = ctx.getBean(ProducerConfig.class);
         Twitter twitter = ctx.getBean(Twitter.class);
-        ObjectMapper mapper = ctx.getBean(ObjectMapper.class);
 
-        Producer<String, String> producer = new Producer<>(config);
+        Producer<String, Tweet> producer = new Producer<>(config);
 
-        List listeners = ImmutableList.of(new TweetStreamListener(producer, mapper));
+        List listeners = ImmutableList.of(new TweetStreamListener(producer));
 
         Stream twitterStream = null;
 

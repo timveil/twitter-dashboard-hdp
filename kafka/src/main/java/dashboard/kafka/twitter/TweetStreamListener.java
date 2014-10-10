@@ -16,25 +16,15 @@ public class TweetStreamListener implements StreamListener {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
 
-    private Producer<String, String> producer;
+    private Producer<String, Tweet> producer;
 
-    private ObjectMapper objectMapper;
-
-    public TweetStreamListener(Producer<String, String> producer, ObjectMapper objectMapper) {
+    public TweetStreamListener(Producer<String, Tweet> producer) {
         this.producer = producer;
-        this.objectMapper = objectMapper;
     }
 
     @Override
     public void onTweet(Tweet tweet) {
-
-        try {
-            String tweetAsJSON = objectMapper.writeValueAsString(tweet);
-            producer.send(new KeyedMessage<>("tweets", Long.toString(tweet.getId()), tweetAsJSON));
-        } catch (JsonProcessingException e) {
-            log.error("error processing tweet: ", e);
-        }
-
+        producer.send(new KeyedMessage<>("tweets", Long.toString(tweet.getId()), tweet));
     }
 
     @Override

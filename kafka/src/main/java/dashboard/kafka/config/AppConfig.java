@@ -43,15 +43,11 @@ public class AppConfig {
         Properties props = new Properties();
         props.put("metadata.broker.list", environment.getProperty("metadata.broker.list"));
         props.put("serializer.class", environment.getProperty("serializer.class"));
+        props.put("key.serializer.class", environment.getProperty("key.serializer.class"));
         props.put("request.required.acks", environment.getProperty("request.required.acks"));
         props.put("producer.type", environment.getProperty("producer.type"));
 
         return new ProducerConfig(props);
-    }
-
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
     }
 
 }

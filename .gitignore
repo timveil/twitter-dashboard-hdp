@@ -37,7 +37,8 @@ com_crashlytics_export_strings.xml
 
 /kafka/target/
 /storm/target/
+/common/target/
 
 *.log
 
-
+storm/dependency-reduced-pom.xml
