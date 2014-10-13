@@ -56,6 +56,8 @@ Create "tweets" topic
 install solr and use dynamic schema
 
 https://cwiki.apache.org/confluence/display/solr/Schemaless+Mode
+
+<openSearcher>true</openSearcher> 
     
     
  https://github.com/LucidWorks/banana/archive/banana-1.4.zip

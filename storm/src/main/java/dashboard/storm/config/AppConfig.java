@@ -15,8 +15,6 @@ import org.apache.storm.hdfs.bolt.rotation.FileRotationPolicy;
 import org.apache.storm.hdfs.bolt.rotation.FileSizeRotationPolicy;
 import org.apache.storm.hdfs.bolt.sync.CountSyncPolicy;
 import org.apache.storm.hdfs.bolt.sync.SyncPolicy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +22,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import storm.kafka.BrokerHosts;
 import storm.kafka.SpoutConfig;
-import storm.kafka.StringScheme;
 import storm.kafka.ZkHosts;
 
 import java.util.Arrays;
@@ -33,8 +30,6 @@ import java.util.List;
 @Configuration
 @PropertySource(value = {"classpath:storm.properties", "classpath:kafka.properties"})
 public class AppConfig {
-
-    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private Environment environment;
@@ -67,19 +62,16 @@ public class AppConfig {
 
         SyncPolicy syncPolicy = new CountSyncPolicy(1000);
 
-        FileRotationPolicy rotationPolicy = new FileSizeRotationPolicy(5.0f, FileSizeRotationPolicy.Units.MB);
+        FileRotationPolicy rotationPolicy = new FileSizeRotationPolicy(50.0f, FileSizeRotationPolicy.Units.MB);
 
         FileNameFormat fileNameFormat = new DefaultFileNameFormat().withPath(environment.getProperty("bolt.hdfs.path"));
 
-        HdfsBolt bolt = new HdfsBolt()
+        return new HdfsBolt()
                 .withFsUrl(environment.getProperty("bolt.hdfs.fs.url"))
                 .withFileNameFormat(fileNameFormat)
                 .withRecordFormat(format)
                 .withRotationPolicy(rotationPolicy)
                 .withSyncPolicy(syncPolicy);
-
-
-        return bolt;
     }
 
     @Bean

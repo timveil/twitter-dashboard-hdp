@@ -41,10 +41,11 @@ public class Harness {
         TopologyBuilder topologyBuilder = new TopologyBuilder();
         topologyBuilder.setSpout(environment.getProperty("spout.name"), kafkaSpout);
         topologyBuilder.setBolt(environment.getProperty("bolt.tweet.name"), new TweetBolt()).shuffleGrouping(environment.getProperty("spout.name"));
-        topologyBuilder.setBolt(environment.getProperty("bolt.hdfs.name"), hdfsBolt).shuffleGrouping(environment.getProperty("bolt.tweet.name"));
-        topologyBuilder.setBolt(environment.getProperty("bolt.solr.name"), solrBolt).shuffleGrouping(environment.getProperty("bolt.tweet.name"));
+        topologyBuilder.setBolt(environment.getProperty("bolt.hdfs.name"), hdfsBolt, 2).shuffleGrouping(environment.getProperty("bolt.tweet.name"));
+        topologyBuilder.setBolt(environment.getProperty("bolt.solr.name"), solrBolt, 4).shuffleGrouping(environment.getProperty("bolt.tweet.name"));
 
         Config stormConfig = buildStormConfig(environment);
+
 
         stormConfig.put(KafkaBolt.KAFKA_BROKER_PROPERTIES, new HashMap<String, String>() {{
             put("metadata.broker.list", environment.getProperty("metadata.broker.list"));

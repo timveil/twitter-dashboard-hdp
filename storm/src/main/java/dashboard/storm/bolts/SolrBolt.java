@@ -1,9 +1,9 @@
 package dashboard.storm.bolts;
 
-import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
-import backtype.storm.topology.IRichBolt;
+import backtype.storm.topology.BasicOutputCollector;
 import backtype.storm.topology.OutputFieldsDeclarer;
+import backtype.storm.topology.base.BaseBasicBolt;
 import backtype.storm.tuple.Tuple;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -16,7 +16,7 @@ import org.springframework.social.twitter.api.Tweet;
 import java.io.IOException;
 import java.util.Map;
 
-public class SolrBolt implements IRichBolt {
+public class SolrBolt extends BaseBasicBolt {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -29,16 +29,15 @@ public class SolrBolt implements IRichBolt {
     }
 
     @Override
-    public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {
+    public void prepare(Map stormConf, TopologyContext context) {
         server = new HttpSolrServer(serverUrl);
     }
 
     @Override
-    public void execute(Tuple input) {
+    public void execute(Tuple input, BasicOutputCollector collector) {
         Tweet tweet = (Tweet) input.getValueByField(TweetScheme.TWEET);
         index(tweet);
     }
-
 
     private void index(Tweet tweet) {
         SolrInputDocument doc = new SolrInputDocument();
@@ -50,23 +49,13 @@ public class SolrBolt implements IRichBolt {
 
         try {
             server.add(doc);
-            server.commit();
         } catch (IOException | SolrServerException e) {
             log.error("error indexing tweet", e);
         }
     }
 
     @Override
-    public void cleanup() {
-    }
-
-    @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-
-    }
-
-    @Override
-    public Map<String, Object> getComponentConfiguration() {
-        return null;
+        // no-op
     }
 }

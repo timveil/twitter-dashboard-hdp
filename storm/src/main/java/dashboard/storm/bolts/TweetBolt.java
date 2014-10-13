@@ -18,7 +18,9 @@ public class TweetBolt extends BaseBasicBolt {
     public void execute(Tuple input, BasicOutputCollector collector) {
         Tweet tweet = (Tweet) input.getValueByField(TweetScheme.TWEET);
 
-        log.debug("tweetId: " + tweet.getId() + ", text: " + tweet.getText());
+        if (log.isDebugEnabled()) {
+            log.debug("tweetId: " + tweet.getId() + ", text: " + tweet.getText());
+        }
 
         collector.emit(new Values(input.getValueByField(TweetScheme.TWEET), input.getValueByField(TweetScheme.TWEET_AS_JSON)));
     }
