@@ -4,6 +4,7 @@ import backtype.storm.spout.SchemeAsMultiScheme;
 import backtype.storm.tuple.Fields;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
+import dashboard.storm.bolts.SolrBolt;
 import dashboard.storm.bolts.TweetScheme;
 import org.apache.storm.hdfs.bolt.HdfsBolt;
 import org.apache.storm.hdfs.bolt.format.DefaultFileNameFormat;
@@ -77,7 +78,13 @@ public class AppConfig {
                 .withRotationPolicy(rotationPolicy)
                 .withSyncPolicy(syncPolicy);
 
+
         return bolt;
+    }
+
+    @Bean
+    public SolrBolt buildSolrBolt() {
+        return new SolrBolt(environment.getProperty("bolt.solr.server.url"));
     }
 
 

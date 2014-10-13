@@ -2,13 +2,23 @@ twitter-dashboard-hdp
 =====================
 
 
-install kafka preview
 
-clone cleanup script
 
 enable 2nd adapter
 
-enable port forwarding for 9092 and 2181
+enable port forwarding for:
+
+* 9092 storm
+* 8005 storm
+* 22   ssh
+* 8983 solr
+* 2181 zookeeper
+
+install kafka preview
+
+install storm
+
+clone cleanup script
 
 update /etc/hosts to point sandbox.hortonworks.com to ip of 2nd adapter
 
@@ -43,4 +53,9 @@ Create "tweets" topic
     bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic tweets
     
     
+install solr and use dynamic schema
+
+https://cwiki.apache.org/confluence/display/solr/Schemaless+Mode
     
+    
+ https://github.com/LucidWorks/banana/archive/banana-1.4.zip

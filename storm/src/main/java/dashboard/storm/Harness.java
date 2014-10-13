@@ -5,6 +5,7 @@ import backtype.storm.StormSubmitter;
 import backtype.storm.generated.AlreadyAliveException;
 import backtype.storm.generated.InvalidTopologyException;
 import backtype.storm.topology.TopologyBuilder;
+import dashboard.storm.bolts.SolrBolt;
 import dashboard.storm.bolts.TweetBolt;
 import dashboard.storm.config.AppConfig;
 import org.apache.storm.hdfs.bolt.HdfsBolt;
@@ -35,11 +36,13 @@ public class Harness {
 
         KafkaSpout kafkaSpout = new KafkaSpout(ctx.getBean(SpoutConfig.class));
         HdfsBolt hdfsBolt = ctx.getBean(HdfsBolt.class);
+        SolrBolt solrBolt = ctx.getBean(SolrBolt.class);
 
         TopologyBuilder topologyBuilder = new TopologyBuilder();
         topologyBuilder.setSpout(environment.getProperty("spout.name"), kafkaSpout);
         topologyBuilder.setBolt(environment.getProperty("bolt.tweet.name"), new TweetBolt()).shuffleGrouping(environment.getProperty("spout.name"));
         topologyBuilder.setBolt(environment.getProperty("bolt.hdfs.name"), hdfsBolt).shuffleGrouping(environment.getProperty("bolt.tweet.name"));
+        topologyBuilder.setBolt(environment.getProperty("bolt.solr.name"), solrBolt).shuffleGrouping(environment.getProperty("bolt.tweet.name"));
 
         Config stormConfig = buildStormConfig(environment);
 

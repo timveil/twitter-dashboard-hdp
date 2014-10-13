@@ -35,6 +35,16 @@
             <artifactId>storm-core</artifactId>
             <version>${storm.version}</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpclient</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpcore</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.storm</groupId>
@@ -67,7 +77,11 @@
             <artifactId>hadoop-hdfs</artifactId>
             <version>${hadoop.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-solrj</artifactId>
+            <version>4.7.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -110,8 +124,9 @@
                                     <exclude>org.mortbay.jetty:servlet-api</exclude>
                                     <exclude>org.jboss.netty:netty</exclude>
                                     <exclude>jline:jline</exclude>
-                                    <exclude>org.apache.httpcomponents:httpclient</exclude>
-                                    <exclude>org.apache.httpcomponents:httpcore</exclude>
+                                    <exclude>commons-httpclient:commons-httpclient</exclude>
+                                    <!--<exclude>org.apache.httpcomponents:httpclient</exclude>
+                                    <exclude>org.apache.httpcomponents:httpcore</exclude>-->
                                     <exclude>com.google.guava:guava</exclude>
                                     <exclude>com.netflix.curator:curator-framework</exclude>
                                     <exclude>com.netflix.curator:curator-client</exclude>
