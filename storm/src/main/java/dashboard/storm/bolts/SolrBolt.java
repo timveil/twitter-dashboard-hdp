@@ -17,6 +17,8 @@ import org.springframework.social.twitter.api.HashTagEntity;
 import org.springframework.social.twitter.api.Tweet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class SolrBolt extends BaseBasicBolt {
@@ -54,13 +56,18 @@ public class SolrBolt extends BaseBasicBolt {
         doc.addField("geoEnabled", tweet.getUser().getLocation());
 
         if (tweet.hasTags()) {
-            SolrInputField field = new SolrInputField("hashtags");
+
+            List<String> hashTags = new ArrayList<String>();
 
             for (HashTagEntity entity : tweet.getEntities().getHashTags()) {
 
                 if (StringUtils.isNotBlank(entity.getText())) {
-                    field.addValue(entity.getText(), 0f);
+                    hashTags.add(entity.getText());
                 }
+            }
+
+            if (!hashTags.isEmpty()) {
+                doc.addField("hashtags", hashTags);
             }
         }
 
