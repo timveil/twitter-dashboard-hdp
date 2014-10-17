@@ -14,6 +14,7 @@ import org.apache.solr.common.SolrInputField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.twitter.api.HashTagEntity;
+import org.springframework.social.twitter.api.MentionEntity;
 import org.springframework.social.twitter.api.Tweet;
 
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class SolrBolt extends BaseBasicBolt {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private enum Type {
-        tweet, hashtag
+        tweet, hashtag, mention
     }
 
     private SolrServer server = null;
@@ -75,6 +76,26 @@ public class SolrBolt extends BaseBasicBolt {
                     hashtagDoc.addField("text", entity.getText());
 
                     addDocument(hashtagDoc);
+
+                }
+            }
+
+        }
+
+        if (tweet.hasMentions()) {
+
+            for (MentionEntity entity : tweet.getEntities().getMentions()) {
+
+                if (StringUtils.isNotBlank(entity.getScreenName())) {
+
+                    SolrInputDocument mentionDoc = new SolrInputDocument();
+                    mentionDoc.addField("id", tweet.getId() + ":" + Type.mention.toString());
+                    mentionDoc.addField("doctype", Type.mention.toString());
+                    mentionDoc.addField("createdAt", tweet.getCreatedAt());
+                    mentionDoc.addField("screenName", entity.getScreenName());
+                    mentionDoc.addField("name", entity.getName());
+
+                    addDocument(mentionDoc);
 
                 }
             }
