@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.Environment;
+import org.springframework.social.twitter.api.FilterStreamParameters;
 import org.springframework.social.twitter.api.Stream;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.Twitter;
@@ -55,7 +56,13 @@ public class Harness {
 
         try {
 
-            twitterStream = twitter.streamingOperations().sample(listeners);
+            FilterStreamParameters filterStreamParameters = new FilterStreamParameters();
+            // San Francisco
+            filterStreamParameters.addLocation(-122.75f,36.8f,-121.75f,37.8f);
+            // New York
+            filterStreamParameters.addLocation(-74,40,-73,41);
+
+            twitterStream = twitter.streamingOperations().filter(filterStreamParameters, listeners);
 
             Thread.sleep(durationInMilliseconds);
 

@@ -25,6 +25,10 @@ public class SolrBolt extends BaseBasicBolt {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
+    private enum Type {
+        tweet, hashtag
+    }
+
     private SolrServer server = null;
 
     private String serverUrl = null;
@@ -47,32 +51,41 @@ public class SolrBolt extends BaseBasicBolt {
     private void index(Tweet tweet) {
         SolrInputDocument doc = new SolrInputDocument();
 
-        doc.addField("id", tweet.getId());
+        doc.addField("id", tweet.getId() + ":" + Type.tweet.toString());
+        doc.addField("doctype", Type.tweet.toString());
         doc.addField("createdAt", tweet.getCreatedAt());
         doc.addField("text", tweet.getText());
         doc.addField("language", tweet.getLanguageCode());
         doc.addField("screenName", tweet.getUser().getScreenName());
         doc.addField("source", tweet.getSource());
-        doc.addField("geoEnabled", tweet.getUser().getLocation());
+        doc.addField("location", tweet.getUser().getLocation());
+
+        addDocument(doc);
 
         if (tweet.hasTags()) {
-
-            List<String> hashTags = new ArrayList<String>();
 
             for (HashTagEntity entity : tweet.getEntities().getHashTags()) {
 
                 if (StringUtils.isNotBlank(entity.getText())) {
-                    hashTags.add(entity.getText());
+
+                    SolrInputDocument hashtagDoc = new SolrInputDocument();
+                    hashtagDoc.addField("id",  tweet.getId() + ":" + Type.hashtag.toString());
+                    hashtagDoc.addField("doctype", Type.hashtag.toString());
+                    hashtagDoc.addField("createdAt", tweet.getCreatedAt());
+                    hashtagDoc.addField("text", entity.getText());
+
+                    addDocument(hashtagDoc);
+
                 }
             }
 
-            if (!hashTags.isEmpty()) {
-                doc.addField("hashtags", hashTags);
-            }
         }
 
 
 
+    }
+
+    private void addDocument(SolrInputDocument doc) {
         try {
             server.add(doc);
         } catch (IOException | SolrServerException e) {
