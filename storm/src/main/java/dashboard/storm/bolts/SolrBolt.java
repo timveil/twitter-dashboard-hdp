@@ -10,7 +10,6 @@ import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.apache.solr.common.SolrInputDocument;
-import org.apache.solr.common.SolrInputField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.twitter.api.HashTagEntity;
@@ -18,8 +17,6 @@ import org.springframework.social.twitter.api.MentionEntity;
 import org.springframework.social.twitter.api.Tweet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class SolrBolt extends BaseBasicBolt {
