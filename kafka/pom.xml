@@ -11,6 +11,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>kafka</artifactId>
+    <name>Kafka Harness</name>
+    <description>Harness for adding Tweets to Kafka</description>
 
     <dependencies>
 

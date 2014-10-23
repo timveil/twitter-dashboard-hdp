@@ -8,6 +8,7 @@
     <artifactId>twitter-dashboard-hdp</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <name>Parent Module</name>
 
     <modules>
         <module>kafka</module>

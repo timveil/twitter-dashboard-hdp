@@ -11,6 +11,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>common</artifactId>
+    <name>Common</name>
+    <description>Common code used across multiple modules</description>
 
 
 </project>
