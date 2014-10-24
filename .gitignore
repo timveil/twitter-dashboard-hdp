@@ -4,10 +4,12 @@
 *.iws
 
 out
+target
 
 /kafka/target/
 /storm/target/
 /common/target/
+/view/target/
 
 *.log
 
