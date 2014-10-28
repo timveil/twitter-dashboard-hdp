@@ -7,11 +7,11 @@
 </div>
 
 
-<form role="form" ng-submit="configCtrl.capture(config)">
-  <div class="form-group">
+<form name="configForm" ng-controller="ConfigController as configCtrl" ng-submit="configForm.$valid && captureTweets(config)" novalidate>
 
+  <div class="form-group">
     <label for="duration" class="control-label">Twitter Stream Lifespan</label>
-    <input type="number" min="1" class="form-control" id="duration" ng-model="config.duration" placeholder="Lifespan of Twitter Stream in minutes ">
+    <input type="number" min="1" required class="form-control" id="duration" ng-model="config.duration" placeholder="Lifespan of Twitter Stream in minutes ">
   </div>
 
   <div class="form-group">
@@ -26,16 +26,15 @@
     <span class="help-block"></span>
   </div>
 
-
   <div class="form-group">
     <label for="locations" class="control-label">Locations to Monitor</label>
     <input type="text" min="1" class="form-control" id="locations" ng-model="config.locations" placeholder="Comma separated list of phrases to track">
     <span class="help-block"></span>
   </div>
 
+  <pre>configForm is {{configForm.$valid}}</pre>
   <pre>form = {{config | json}}</pre>
   <pre>master = {{master | json}}</pre>
-
 
   <hr/>
 

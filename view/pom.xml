@@ -18,6 +18,13 @@
 
     <dependencies>
 
+
+        <dependency>
+            <groupId>dashboard</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
