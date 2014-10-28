@@ -5,6 +5,7 @@ public class Configuration {
     private String text;
     private String phrases;
     private String locations;
+    private String users;
 
     public Integer getDuration() {
         return duration;
@@ -36,5 +37,13 @@ public class Configuration {
 
     public void setLocations(String locations) {
         this.locations = locations;
+    }
+
+    public String getUsers() {
+        return users;
+    }
+
+    public void setUsers(String users) {
+        this.users = users;
     }
 }

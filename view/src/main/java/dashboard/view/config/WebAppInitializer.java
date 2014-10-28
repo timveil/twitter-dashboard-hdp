@@ -3,9 +3,10 @@ package dashboard.view.config;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return null;
+        return new Class[] { AppConfig.class };
     }
 
     @Override
