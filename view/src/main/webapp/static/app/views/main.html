@@ -1,23 +1,44 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
+<div class="bs-callout bs-callout-warning bg-warning">
+  <h4>Be Careful!</h4>
+
+  <p>The Twitter Stream will remain open for fixed period of time as specified by the lifespan entered below. Given the amount of data that will be consumed, take care to ensure that your server configuration can handle the load.</p>
+
+  <p>For more information see <a href="https://dev.twitter.com/streaming/overview/request-parameters#track">Twitter Developer Documentation</a></p>
 </div>
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
 
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
+<form role="form" ng-submit="configCtrl.capture(config)">
+  <div class="form-group">
 
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
-</div>
+    <label for="duration" class="control-label">Twitter Stream Lifespan</label>
+    <input type="number" min="1" class="form-control" id="duration" ng-model="config.duration" placeholder="Lifespan of Twitter Stream in minutes ">
+  </div>
+
+  <div class="form-group">
+    <label for="users" class="control-label">Users to Follow</label>
+    <input type="text" min="1" class="form-control" id="users"  ng-model="config.users" placeholder="Comma separated list of Twitter User ID's">
+    <span class="help-block">See <a href="http://tweeterid.com/" target="_blank">TweeterID</a> to convert Twitter handles to User ID's</span>
+  </div>
+
+  <div class="form-group">
+    <label for="phrases" class="control-label">Phrases to Track</label>
+    <input type="text" min="1" class="form-control" id="phrases"  ng-model="config.phrases" placeholder="Comma separated list of phrases to track">
+    <span class="help-block"></span>
+  </div>
+
+
+  <div class="form-group">
+    <label for="locations" class="control-label">Locations to Monitor</label>
+    <input type="text" min="1" class="form-control" id="locations" ng-model="config.locations" placeholder="Comma separated list of phrases to track">
+    <span class="help-block"></span>
+  </div>
+
+  <pre>form = {{config | json}}</pre>
+  <pre>master = {{master | json}}</pre>
+
+
+  <hr/>
+
+  <button type="submit" class="btn btn-primary">Capture Twitter Data</button>
+
+</form>
