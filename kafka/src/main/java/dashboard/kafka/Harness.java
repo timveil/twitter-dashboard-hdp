@@ -56,13 +56,19 @@ public class Harness {
 
         try {
 
+
+/*
             FilterStreamParameters filterStreamParameters = new FilterStreamParameters();
             // San Francisco
             filterStreamParameters.addLocation(-122.75f,36.8f,-121.75f,37.8f);
             // New York
             filterStreamParameters.addLocation(-74,40,-73,41);
 
-            twitterStream = twitter.streamingOperations().filter(filterStreamParameters, listeners);
+            twitterStream = twitter.streamingOperations().filter(filterStreamParameters, listeners);*/
+
+            twitterStream = twitter.streamingOperations().sample(listeners);
+
+
 
             Thread.sleep(durationInMilliseconds);
 

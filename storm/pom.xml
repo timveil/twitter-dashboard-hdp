@@ -117,20 +117,15 @@
                                 <excludes>
                                     <exclude>commons-logging:commons-logging</exclude>
                                     <exclude>junit:junit</exclude>
-                                    <exclude>org.slf4j:slf4j-api</exclude>
-                                    <exclude>org.slf4j:jcl-over-slf4j</exclude>
-                                    <exclude>org.slf4j:slf4j-log4j12</exclude>
-                                    <exclude>log4j:log4j</exclude>
+                                    <exclude>org.slf4j:*</exclude>
+                                    <exclude>log4j:*</exclude>
                                     <exclude>javax.servlet:servlet-api</exclude>
-                                    <exclude>org.mortbay.jetty:jetty</exclude>
-                                    <exclude>org.mortbay.jetty:jetty-util</exclude>
-                                    <exclude>org.mortbay.jetty:servlet-api</exclude>
+                                    <exclude>org.mortbay.jetty:*</exclude>
                                     <exclude>org.jboss.netty:netty</exclude>
                                     <exclude>jline:jline</exclude>
                                     <exclude>commons-httpclient:commons-httpclient</exclude>
                                     <exclude>com.google.guava:guava</exclude>
-                                    <exclude>com.netflix.curator:curator-framework</exclude>
-                                    <exclude>com.netflix.curator:curator-client</exclude>
+                                    <exclude>com.netflix.curator:*</exclude>
                                     <exclude>commons-lang:commons-lang</exclude>
                                     <exclude>commons-io:commons-io</exclude>
                                     <exclude>commons-codec:commons-codec</exclude>

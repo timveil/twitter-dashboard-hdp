@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('staticApp')
-  .controller('ConfigController', function ($scope, $http) {
+  .controller('ConfigController', function ($scope, $element, $http) {
 
     $scope.config = {};
 
