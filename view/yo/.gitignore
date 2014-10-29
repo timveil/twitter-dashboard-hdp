@@ -1,0 +1,5 @@
+../src/main/webapp/static/node_modules/grunt/node_modules/findup-sync/node_modules
+dist
+.tmp
+.sass-cache
+bower_components
