@@ -60,27 +60,58 @@
                 <version>2.5</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <webResources>
+                        <resource>
+                            <directory>yo/dist</directory>
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
+
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
+                <groupId>com.github.trecloux</groupId>
+                <artifactId>yeoman-maven-plugin</artifactId>
+                <version>0.2</version>
                 <executions>
                     <execution>
-                        <phase>package</phase>
-                        <configuration>
-                            <target>
-                                <copy file="${project.build.directory}/${project.build.finalName}.war"
-                                      tofile="${project.build.directory}/${project.build.finalName}-VIEW.jar" />
-                            </target>
-                        </configuration>
                         <goals>
-                            <goal>run</goal>
+                            <goal>build</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>yo/dist</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>yo/.tmp</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>yo/app/components</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>yo/node_modules</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.2.3.v20140905</version>
+                <configuration>
+                    <stopPort>9999</stopPort>
+                    <stopKey>foo</stopKey>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>
