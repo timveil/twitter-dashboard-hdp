@@ -4,7 +4,9 @@ echo ""
 echo "$(tput setaf 2)Starting Solr $(tput sgr 0)"
 echo ""
 
-nohup java -jar /opt/solr/latest/hdp/start.jar -Djetty.home=/opt/solr/latest/hdp -Dsolr.solr.home=/opt/solr/latest/hdp/solr &> solr.out
+start_spinner
+nohup java -jar /opt/solr/latest/hdp/start.jar -Djetty.home=/opt/solr/latest/hdp -Dsolr.solr.home=/opt/solr/latest/hdp/solr &> solr.out&
+stop_spinner $?
 
 echo ""
 echo "$(tput setaf 2)Starting Kafka $(tput sgr 0)"
