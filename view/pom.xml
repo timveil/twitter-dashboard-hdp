@@ -79,7 +79,7 @@
                 <artifactId>yeoman-maven-plugin</artifactId>
                 <version>0.2</version>
                 <configuration>
-                    <bowerInstallArgs>--allow-root</bowerInstallArgs>
+                    <bowerInstallArgs>install --allow-root</bowerInstallArgs>
                 </configuration>
                 <executions>
                     <execution>
