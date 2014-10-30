@@ -1,14 +1,16 @@
 #!/bin/bash
 
-source "$(pwd)/spinner.sh"
-
 echo ""
 echo "$(tput setaf 2)Starting Solr $(tput sgr 0)"
 echo ""
 
-start_spinner 'starting'
-nohup java -jar /opt/solr/latest/hdp/start.jar -Djetty.home=/opt/solr/latest/hdp -Dsolr.solr.home=/opt/solr/latest/hdp/solr &> solr.out &
-stop_spinner $?
+nohup java -jar /opt/solr/latest/hdp/start.jar -Djetty.home=/opt/solr/latest/hdp -Dsolr.solr.home=/opt/solr/latest/hdp/solr &> solr.out&
+
+echo ""
+echo "$(tput setaf 2)Creating 'tweets' core $(tput sgr 0)"
+echo ""
+
+curl "http://sandbox.hortonworks.com:8983/solr/admin/cores?action=CREATE&name=tweets&instanceDir=/opt/solr/latest/hdp/solr/tweets"
 
 echo ""
 echo "$(tput setaf 2)Starting Kafka $(tput sgr 0)"
