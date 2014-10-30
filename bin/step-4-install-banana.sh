@@ -40,7 +40,6 @@ echo ""
 
 cd /opt/banana/latest
 mkdir build
-yum -y install ant
 ant
 
 echo ""
