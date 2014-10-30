@@ -56,5 +56,11 @@ ENDCOMMANDS
 cp solrconfig.xml /opt/solr/latest/hdp/solr/tweets/conf
 
 echo ""
+echo "$(tput setaf 2)Remove conflicting jars $(tput sgr 0)"
+echo ""
+rm -rf /usr/lib/storm/lib/httpclient-4.1.1.jar
+rm -rf /usr/lib/storm/lib/httpcore-4.1.jar
+
+echo ""
 echo "$(tput setaf 2)Finished installing Solr $(tput sgr 0)"
 echo ""
