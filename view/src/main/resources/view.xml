@@ -1,8 +1,0 @@
-<view>
-    <name>HELLO_WORLD</name>
-    <label>The Hello World View!</label>
-    <version>1.0.0</version>
-    <instance>
-        <name>INSTANCE_1</name>
-    </instance>
-</view>

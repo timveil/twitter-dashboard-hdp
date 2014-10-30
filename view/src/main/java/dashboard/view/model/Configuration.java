@@ -2,7 +2,6 @@ package dashboard.view.model;
 
 public class Configuration {
     private Integer duration;
-    private String text;
     private String phrases;
     private String locations;
     private String users;
@@ -13,14 +12,6 @@ public class Configuration {
 
     public void setDuration(Integer duration) {
         this.duration = duration;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     public String getPhrases() {
@@ -46,4 +37,5 @@ public class Configuration {
     public void setUsers(String users) {
         this.users = users;
     }
+
 }

@@ -11,7 +11,7 @@ angular.module('staticApp')
 
       $scope.master = angular.copy(newConfig);
 
-      $http.post('/view_war_exploded/rest/capture', {duration:10, users: 'timveil'});
+      $http.post('/rest/capture', {duration:10, users: 'timveil'});
 
 
     };

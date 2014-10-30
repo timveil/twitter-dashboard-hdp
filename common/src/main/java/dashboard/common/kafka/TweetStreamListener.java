@@ -1,4 +1,4 @@
-package dashboard.kafka.twitter;
+package dashboard.common.kafka;
 
 import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
