@@ -34,7 +34,7 @@ mvn -q clean install -pl storm -am
 storm jar storm/target/storm-1.0-SNAPSHOT.jar dashboard.storm.Harness
 
 echo ""
-echo "$(tput setaf 2)##### Starting Jetty $(tput sgr 0)"
+echo "$(tput setaf 2)##### Builindg webapp and starting Jetty (may take up to 5 minutes) $(tput sgr 0)"
 echo ""
 cd view
 mvn -q clean jetty:run-war -Dyo.test.skip=true -Djetty.port=8181
