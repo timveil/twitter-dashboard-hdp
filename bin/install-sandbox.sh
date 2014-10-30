@@ -10,6 +10,7 @@ VBoxManage modifyvm "$HDPNAME" --natpf1 storm1,tcp,127.0.0.1,9092,,9092
 VBoxManage modifyvm "$HDPNAME" --natpf1 storm2,tcp,127.0.0.1,8005,,8005
 VBoxManage modifyvm "$HDPNAME" --natpf1 solr,tcp,127.0.0.1,8983,,8983
 VBoxManage modifyvm "$HDPNAME" --natpf1 jetty,tcp,127.0.0.1,8181,,8181
+VBoxManage modifyvm "$HDPNAME" --natpf1 hbase,tcp,127.0.0.1,60010,,60010
 
 VBoxManage startvm "$HDPNAME"
 

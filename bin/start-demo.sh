@@ -36,4 +36,5 @@ storm jar storm/target/storm-1.0-SNAPSHOT.jar dashboard.storm.Harness
 echo ""
 echo "$(tput setaf 2)##### Starting Jetty $(tput sgr 0)"
 echo ""
+cd view
 mvn -q clean jetty:run-war -Dyo.test.skip=true -Djetty.port=8181
