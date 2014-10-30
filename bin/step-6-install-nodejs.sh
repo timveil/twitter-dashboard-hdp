@@ -13,7 +13,7 @@ echo ""
 npm install -g npm@latest
 
 echo ""
-echo "$(tput setaf 2)Installing Yeoman $(tput sgr 0)"
+echo "$(tput setaf 2)Installing Yeoman and related tools $(tput sgr 0)"
 echo ""
 npm install --global yo bower grunt-cli
 
