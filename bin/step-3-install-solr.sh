@@ -1,6 +1,12 @@
 #!/bin/bash
 
 echo ""
+echo "$(tput setaf 2)######################################### $(tput sgr 0)"
+echo "$(tput setaf 2)###### Step3 - Install Solr $(tput sgr 0)"
+echo "$(tput setaf 2)######################################### $(tput sgr 0)"
+echo ""
+
+echo ""
 echo "$(tput setaf 2)Creating 'solr' user $(tput sgr 0)"
 echo ""
 
@@ -31,7 +37,7 @@ echo ""
 echo "$(tput setaf 2)Downloading and installing Solr $(tput sgr 0)"
 echo ""
 
-wget http://apache.mirrors.hoobly.com/lucene/solr/4.10.1/solr-4.10.1.tgz
+wget -nv http://apache.mirrors.hoobly.com/lucene/solr/4.10.1/solr-4.10.1.tgz
 tar xzf solr-4.10.1.tgz
 ln -s solr-4.10.1 latest
 rm -rf solr-*.tgz

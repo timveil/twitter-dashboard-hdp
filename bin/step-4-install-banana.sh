@@ -1,6 +1,12 @@
 #!/bin/bash
 
 echo ""
+echo "$(tput setaf 2)######################################### $(tput sgr 0)"
+echo "$(tput setaf 2)###### Step 42 - Install Banana $(tput sgr 0)"
+echo "$(tput setaf 2)######################################### $(tput sgr 0)"
+echo ""
+
+echo ""
 echo "$(tput setaf 2)Creating banana install directory $(tput sgr 0)"
 echo ""
 
@@ -13,7 +19,7 @@ echo ""
 echo "$(tput setaf 2)Downloading and installing Banana $(tput sgr 0)"
 echo ""
 
-wget https://github.com/LucidWorks/banana/archive/banana-1.4.tar.gz
+wget -nv https://github.com/LucidWorks/banana/archive/banana-1.4.tar.gz
 tar xzf banana-1.4.tar.gz
 ln -s banana-banana-1.4 latest
 rm -rf banana-*.gz
