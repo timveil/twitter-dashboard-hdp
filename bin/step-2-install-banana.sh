@@ -7,7 +7,6 @@ echo ""
 mkdir /opt/banana
 chown solr:solr /opt/banana
 
-su solr <<ENDCOMMANDS
 cd /opt/banana
 
 echo ""
@@ -15,7 +14,7 @@ echo "$(tput setaf 2)Downloading and installing Banana $(tput sgr 0)"
 echo ""
 
 wget https://github.com/LucidWorks/banana/archive/banana-1.4.tar.gz
-tar xvzf banana-1.4.tar.gz
+tar xzf banana-1.4.tar.gz
 ln -s banana-banana-1.4 latest
 rm -rf banana-*.gz
 
@@ -50,7 +49,6 @@ echo ""
 
 cp /opt/banana/latest/build/banana-0.war /opt/solr/latest/hdp/webapps/banana.war
 cp /opt/banana/latest/jetty-contexts/banana-context.xml /opt/solr/latest/hdp/contexts/
-ENDCOMMANDS
 
 echo ""
 echo "$(tput setaf 2)Finished installing Banana $(tput sgr 0)"

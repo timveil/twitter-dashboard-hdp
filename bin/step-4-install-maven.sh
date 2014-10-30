@@ -12,7 +12,7 @@ echo ""
 echo "$(tput setaf 2)Installing Maven $(tput sgr 0)"
 echo ""
 
-tar xvzf apache-maven-3.2.3-bin.tar.gz
+tar xzf apache-maven-3.2.3-bin.tar.gz
 rm -rf apache-maven-3.2.3-bin.tar.gz
 ln -s /opt/maven/apache-maven-3.2.3 /opt/maven/latest
 echo 'M2_HOME=/usr/share/maven/latest' >> ~/.bashrc
