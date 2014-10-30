@@ -12,7 +12,7 @@ echo ""
 
 curl -sL https://rpm.nodesource.com/setup | bash -
 yum -q install -y nodejs gcc-c++ make ruby ruby-devel rubygems libpng-devel
-gem update --quiet --no-document --system
+gem update --quiet --system
 gem install compass --quiet --no-document
 
 echo ""
