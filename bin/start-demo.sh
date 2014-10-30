@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$(pwd)/spinner.sh"
+
 echo ""
 echo "$(tput setaf 2)Starting Solr $(tput sgr 0)"
 echo ""
