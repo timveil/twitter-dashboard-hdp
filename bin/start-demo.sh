@@ -25,6 +25,12 @@ echo ""
 /usr/lib/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic tweets
 
 echo ""
-echo "$(tput setaf 2)Deploying Storm topology $(tput sgr 0)"
+echo "$(tput setaf 2)Building and deploying Storm topology $(tput sgr 0)"
 echo ""
-#storm jar storm-1.0-SNAPSHOT.jar dashboard.storm.Harness
+mvn -q clean install -pl storm -am
+storm jar storm/target/storm-1.0-SNAPSHOT.jar dashboard.storm.Harness
+
+echo ""
+echo "$(tput setaf 2)Starting Jetty $(tput sgr 0)"
+echo ""
+mvn -q clean jetty:run-war -Dyo.test.skip=true -Djetty.port=8181
