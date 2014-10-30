@@ -2,7 +2,7 @@
 
 echo ""
 echo "$(tput setaf 2)######################################### $(tput sgr 0)"
-echo "$(tput setaf 2)###### Step3 - Install Solr $(tput sgr 0)"
+echo "$(tput setaf 2)###### Step 3 - Install Solr $(tput sgr 0)"
 echo "$(tput setaf 2)######################################### $(tput sgr 0)"
 echo ""
 

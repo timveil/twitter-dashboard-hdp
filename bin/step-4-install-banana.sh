@@ -2,7 +2,7 @@
 
 echo ""
 echo "$(tput setaf 2)######################################### $(tput sgr 0)"
-echo "$(tput setaf 2)###### Step 42 - Install Banana $(tput sgr 0)"
+echo "$(tput setaf 2)###### Step 4 - Install Banana $(tput sgr 0)"
 echo "$(tput setaf 2)######################################### $(tput sgr 0)"
 echo ""
 

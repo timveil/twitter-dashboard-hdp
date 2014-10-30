@@ -12,8 +12,8 @@ echo ""
 
 curl -sL https://rpm.nodesource.com/setup | bash -
 yum -q install -y nodejs gcc-c++ make ruby ruby-devel rubygems libpng-devel
-gem -q update --system --no-document
-gem -q install compass --no-document
+gem update --quiet --system --no-document
+gem install compass --quiet --no-document
 
 echo ""
 echo "$(tput setaf 2)Updating NPM $(tput sgr 0)"

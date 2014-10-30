@@ -12,3 +12,4 @@ VBoxManage modifyvm "$HDPNAME" --natpf1 solr,tcp,127.0.0.1,8983,,8983
 VBoxManage modifyvm "$HDPNAME" --natpf1 jetty,tcp,127.0.0.1,8181,,8181
 
 VBoxManage startvm "$HDPNAME"
+
