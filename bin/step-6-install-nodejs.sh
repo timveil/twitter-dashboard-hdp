@@ -19,12 +19,17 @@ gem install compass --quiet --no-document
 echo ""
 echo "$(tput setaf 2)##### Updating NPM $(tput sgr 0)"
 echo ""
-npm -q install -g npm@latest
+
+npm config set loglevel win --global
+
+npm install -g npm@latest
 
 echo ""
 echo "$(tput setaf 2)##### Installing Yeoman and related tools $(tput sgr 0)"
 echo ""
-npm -q install --g yo bower grunt-cli
+npm install --g yo --no-color --no-insight --ignore-scripts
+npm install --g bower
+npm install --g grunt-cli
 
 echo ""
 echo "$(tput setaf 2)##### Finished installing $(tput sgr 0)"
