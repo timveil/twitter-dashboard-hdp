@@ -105,9 +105,6 @@
                         <fileset>
                             <directory>yo/app/components</directory>
                         </fileset>
-                        <fileset>
-                            <directory>yo/node_modules</directory>
-                        </fileset>
                     </filesets>
                 </configuration>
             </plugin>
