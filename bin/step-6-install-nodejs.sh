@@ -27,7 +27,7 @@ npm install -g npm@latest
 echo ""
 echo "$(tput setaf 2)##### Installing Yeoman and related tools $(tput sgr 0)"
 echo ""
-npm install --g yo --no-color --no-insight --ignore-scripts
+npm install --loglevel win --g yo --no-color --no-insight --ignore-scripts
 npm install --g bower
 npm install --g grunt-cli
 
