@@ -1,6 +1,6 @@
 #!/bin/bash
 
-wget http://hortonassets.s3.amazonaws.com/2.1/virtualbox/Hortonworks_Sandbox_2.1.ova
+curl "http://hortonassets.s3.amazonaws.com/2.1/virtualbox/Hortonworks_Sandbox_2.1.ova" -o "Hortonworks_Sandbox_2.1.ova"
 
 HDPNAME="Hortonworks Sandbox 2.1 - Twitter Demo"
 

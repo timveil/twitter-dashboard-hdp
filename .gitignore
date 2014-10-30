@@ -3,6 +3,8 @@
 *.ipr
 *.iws
 
+*.ova
+
 out
 target
 
