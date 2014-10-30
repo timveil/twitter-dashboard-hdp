@@ -10,7 +10,7 @@ echo ""
 echo "$(tput setaf 2)Creating 'tweets' core $(tput sgr 0)"
 echo ""
 
-curl "http://sandbox.hortonworks.com:8983/solr/admin/cores?action=CREATE&name=tweets&instanceDir=/opt/solr/latest/hdp/solr/tweets"
+curl "http://localhost:8983/solr/admin/cores?action=CREATE&name=tweets&instanceDir=/opt/solr/latest/hdp/solr/tweets"
 
 echo ""
 echo "$(tput setaf 2)Starting Kafka $(tput sgr 0)"
