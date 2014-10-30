@@ -11,7 +11,8 @@ echo "$(tput setaf 2)##### Installing NodeJS and related tools$(tput sgr 0)"
 echo ""
 
 curl -sL https://rpm.nodesource.com/setup | bash -
-yum -q install -y nodejs gcc-c++ make ruby ruby-devel rubygems libpng-devel
+yum -q install -y -t nodejs
+yum -q install -y -t gcc-c++ make ruby ruby-devel rubygems libpng-devel
 gem update --quiet --system
 gem install compass --quiet --no-document
 

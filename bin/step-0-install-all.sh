@@ -1,5 +1,10 @@
 #!/bin/bash
 
+yum clean all
+yum clean metadata
+yum clean dbcache
+yum makecache
+
 ./step-1-install-ant.sh
 ./step-2-install-maven.sh
 
