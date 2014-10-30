@@ -6,7 +6,7 @@ echo ""
 echo "$(tput setaf 2)Starting Solr $(tput sgr 0)"
 echo ""
 
-start_spinner
+start_spinner 'starting'
 nohup java -jar /opt/solr/latest/hdp/start.jar -Djetty.home=/opt/solr/latest/hdp -Dsolr.solr.home=/opt/solr/latest/hdp/solr &> solr.out &
 stop_spinner $?
 
