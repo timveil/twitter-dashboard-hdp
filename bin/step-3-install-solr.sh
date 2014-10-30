@@ -7,7 +7,7 @@ echo "$(tput setaf 2)######################################### $(tput sgr 0)"
 echo ""
 
 echo ""
-echo "$(tput setaf 2)Creating 'solr' user $(tput sgr 0)"
+echo "$(tput setaf 2)##### Creating 'solr' user $(tput sgr 0)"
 echo ""
 
 adduser solr
@@ -15,14 +15,14 @@ echo solr | passwd solr --stdin
 
 
 echo ""
-echo "$(tput setaf 2)Creating Solr install directory $(tput sgr 0)"
+echo "$(tput setaf 2)##### Creating Solr install directory $(tput sgr 0)"
 echo ""
 
 mkdir /opt/solr
 chown solr:solr /opt/solr
 
 echo ""
-echo "$(tput setaf 2)Creating HDFS directory for Solr data $(tput sgr 0)"
+echo "$(tput setaf 2)##### Creating HDFS directory for Solr data $(tput sgr 0)"
 echo ""
 
 su hdfs <<ENDCOMMANDS
@@ -34,7 +34,7 @@ su solr <<ENDCOMMANDS
 cd /opt/solr
 
 echo ""
-echo "$(tput setaf 2)Downloading and installing Solr $(tput sgr 0)"
+echo "$(tput setaf 2)##### Downloading and installing Solr $(tput sgr 0)"
 echo ""
 
 wget -nv http://apache.mirrors.hoobly.com/lucene/solr/4.10.1/solr-4.10.1.tgz
@@ -43,7 +43,7 @@ ln -s solr-4.10.1 latest
 rm -rf solr-*.tgz
 
 echo ""
-echo "$(tput setaf 2)Cleaning up Solr installation $(tput sgr 0)"
+echo "$(tput setaf 2)##### Cleaning up Solr installation $(tput sgr 0)"
 echo ""
 
 # copy example directory to new directory called hdp
@@ -62,11 +62,11 @@ ENDCOMMANDS
 cp solrconfig.xml /opt/solr/latest/hdp/solr/tweets/conf
 
 echo ""
-echo "$(tput setaf 2)Remove conflicting jars $(tput sgr 0)"
+echo "$(tput setaf 2)##### Remove conflicting jars $(tput sgr 0)"
 echo ""
 rm -rf /usr/lib/storm/lib/httpclient-4.1.1.jar
 rm -rf /usr/lib/storm/lib/httpcore-4.1.jar
 
 echo ""
-echo "$(tput setaf 2)Finished installing Solr $(tput sgr 0)"
+echo "$(tput setaf 2)##### Finished installing Solr $(tput sgr 0)"
 echo ""
