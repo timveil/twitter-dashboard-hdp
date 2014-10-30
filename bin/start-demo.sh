@@ -30,7 +30,7 @@ echo ""
 echo ""
 echo "$(tput setaf 2)##### Building and deploying Storm topology $(tput sgr 0)"
 echo ""
-mvn -q clean install -pl storm -am
+mvn -q clean package -pl storm -am
 storm jar storm/target/storm-1.0-SNAPSHOT.jar dashboard.storm.Harness
 
 echo ""
