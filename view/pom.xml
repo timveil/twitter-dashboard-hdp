@@ -79,7 +79,7 @@
                 <artifactId>yeoman-maven-plugin</artifactId>
                 <version>0.2</version>
                 <configuration>
-                    <npmInstallArgs>-g npm@latest</npmInstallArgs>
+                    <npmInstallArgs>install -g npm@latest</npmInstallArgs>
                 </configuration>
                 <executions>
                     <execution>
