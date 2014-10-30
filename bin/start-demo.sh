@@ -21,4 +21,4 @@ echo ""
 echo ""
 echo "$(tput setaf 2)Deploying Storm topology $(tput sgr 0)"
 echo ""
-storm jar storm-1.0-SNAPSHOT.jar dashboard.storm.Harness
+#storm jar storm-1.0-SNAPSHOT.jar dashboard.storm.Harness

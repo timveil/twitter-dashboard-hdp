@@ -5,8 +5,9 @@ cd /opt/ant
 
 echo ""
 echo "$(tput setaf 2)Downloading Ant $(tput sgr 0)"
-wget http://mirror.symnds.com/software/Apache//ant/binaries/apache-ant-1.9.4-bin.tar.gz
 echo ""
+wget http://mirror.symnds.com/software/Apache//ant/binaries/apache-ant-1.9.4-bin.tar.gz
+
 
 echo ""
 echo "$(tput setaf 2)Installing Ant $(tput sgr 0)"
