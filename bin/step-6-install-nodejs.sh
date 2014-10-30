@@ -24,7 +24,7 @@ npm -q install -g npm@latest
 echo ""
 echo "$(tput setaf 2)##### Installing Yeoman and related tools $(tput sgr 0)"
 echo ""
-npm -q install --global yo bower grunt-cli
+npm -q install --g yo bower grunt-cli
 
 echo ""
 echo "$(tput setaf 2)##### Finished installing $(tput sgr 0)"
