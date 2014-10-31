@@ -5,6 +5,8 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.yammer.metrics.Metrics;
+import com.yammer.metrics.core.Metric;
+import com.yammer.metrics.core.MetricName;
 import com.yammer.metrics.core.MetricPredicate;
 import com.yammer.metrics.reporting.ConsoleReporter;
 import dashboard.common.kafka.TweetStreamListener;
@@ -44,7 +46,13 @@ public class TweetStreamServiceImpl implements TweetStreamService {
 
         List listeners = ImmutableList.of(new TweetStreamListener(producer));
 
-        ConsoleReporter reporter = new ConsoleReporter(Metrics.defaultRegistry(), System.out, MetricPredicate.ALL);
+        ConsoleReporter reporter = new ConsoleReporter(Metrics.defaultRegistry(), System.out, new MetricPredicate() {
+            @Override
+            public boolean matches(MetricName name, Metric metric) {
+                return name.getName().contains("AllTopicsMessagesPerSec");
+            }
+        });
+
         reporter.start(1, TimeUnit.MINUTES);
 
         listenToStream(listeners, configuration);
