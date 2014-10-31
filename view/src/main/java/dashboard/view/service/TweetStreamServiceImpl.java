@@ -53,7 +53,7 @@ public class TweetStreamServiceImpl implements TweetStreamService {
             }
         });
 
-        reporter.start(1, TimeUnit.MINUTES);
+        reporter.start(30, TimeUnit.SECONDS);
 
         listenToStream(listeners, configuration);
 
