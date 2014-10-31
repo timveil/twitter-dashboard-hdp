@@ -12,7 +12,6 @@ angular.module('staticApp')
       $scope.master = angular.copy(newConfig);
 
       $http.post('/rest/capture', $scope.master).success(function (data, status, headers, config) {
-        alert(data);
       });
 
     };
