@@ -11,8 +11,7 @@ angular.module('staticApp')
 
       $scope.master = angular.copy(newConfig);
 
-      $http.post('/rest/capture', {duration:10, users: 'timveil'});
-
+      $http.post('/rest/capture', $element.serialize());
 
     };
 
