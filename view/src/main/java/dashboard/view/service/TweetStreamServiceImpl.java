@@ -46,22 +46,19 @@ public class TweetStreamServiceImpl implements TweetStreamService {
 
         List listeners = ImmutableList.of(new TweetStreamListener(producer));
 
+        listenToStream(listeners, configuration);
+
+    }
+
+    private void listenToStream(List listeners, Configuration configuration) {
+
+
         ConsoleReporter reporter = new ConsoleReporter(Metrics.defaultRegistry(), System.out, new MetricPredicate() {
             @Override
             public boolean matches(MetricName name, Metric metric) {
                 return name.getName().contains("AllTopicsMessagesPerSec");
             }
         });
-
-        reporter.start(30, TimeUnit.SECONDS);
-
-        listenToStream(listeners, configuration);
-
-        reporter.shutdown();
-
-    }
-
-    private void listenToStream(List listeners, Configuration configuration) {
 
         Integer durationInMinutes = configuration.getDuration();
         Integer durationInMilliseconds = durationInMinutes * 60 * 1000;
@@ -122,6 +119,7 @@ public class TweetStreamServiceImpl implements TweetStreamService {
                     }
                 }
 
+                reporter.start(30, TimeUnit.SECONDS);
 
                 twitterStream = twitter.streamingOperations().filter(filterStreamParameters, listeners);
             }
@@ -139,6 +137,9 @@ public class TweetStreamServiceImpl implements TweetStreamService {
             if (twitterStream != null) {
                 twitterStream.close();
             }
+
+            reporter.shutdown();
+
         }
     }
 }
