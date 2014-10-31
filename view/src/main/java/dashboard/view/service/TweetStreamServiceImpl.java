@@ -46,13 +46,6 @@ public class TweetStreamServiceImpl implements TweetStreamService {
 
         List listeners = ImmutableList.of(new TweetStreamListener(producer));
 
-        listenToStream(listeners, configuration);
-
-    }
-
-    private void listenToStream(List listeners, Configuration configuration) {
-
-
         ConsoleReporter reporter = new ConsoleReporter(Metrics.defaultRegistry(), System.out, new MetricPredicate() {
             @Override
             public boolean matches(MetricName name, Metric metric) {
@@ -141,5 +134,8 @@ public class TweetStreamServiceImpl implements TweetStreamService {
             reporter.shutdown();
 
         }
+
     }
+
+
 }
