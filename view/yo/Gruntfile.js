@@ -409,11 +409,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-    'clean:server',
-    'concurrent:test',
-    'autoprefixer',
-    'connect:test',
-    'karma'
+    'clean:server'
   ]);
 
   grunt.registerTask('build', [
@@ -435,7 +431,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'newer:jshint',
-    'test',
     'build'
   ]);
 };
