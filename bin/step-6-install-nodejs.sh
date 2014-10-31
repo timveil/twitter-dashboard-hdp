@@ -20,14 +20,14 @@ echo ""
 echo "$(tput setaf 2)##### Updating NPM $(tput sgr 0)"
 echo ""
 
-npm install -g npm@latest > npm-install.log 2>&1
+npm install -g npm@latest > step-6-install-nodejs.log.log 2>&1
 
 echo ""
 echo "$(tput setaf 2)##### Installing Yeoman and related tools $(tput sgr 0)"
 echo ""
-npm install --g yo --no-color --no-insight --ignore-scripts > npm-install.log 2>&1
-npm install --g bower > npm-install.log 2>&1
-npm install --g grunt-cli > npm-install.log 2>&1
+npm install --g yo --no-color --no-insight --ignore-scripts > step-6-install-nodejs.log.log 2>&1
+npm install --g bower > step-6-install-nodejs.log.log 2>&1
+npm install --g grunt-cli > step-6-install-nodejs.log.log 2>&1
 
 echo ""
 echo "$(tput setaf 2)##### Finished installing $(tput sgr 0)"
