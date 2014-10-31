@@ -10,3 +10,5 @@
  */
 angular
   .module('staticApp', []);
+
+angular.module('myApp', ['angular-loading-bar', 'ngAnimate'])

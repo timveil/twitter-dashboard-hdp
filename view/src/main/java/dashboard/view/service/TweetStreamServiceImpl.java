@@ -46,18 +46,7 @@ public class TweetStreamServiceImpl implements TweetStreamService {
 
         List listeners = ImmutableList.of(new TweetStreamListener(producer));
 
-        ConsoleReporter reporter = new ConsoleReporter(Metrics.defaultRegistry(), System.out, new MetricPredicate() {
-            @Override
-            public boolean matches(MetricName name, Metric metric) {
-                return name.getName().contains("AllTopicsMessagesPerSec");
-            }
-        });
-
-        reporter.start(30, TimeUnit.SECONDS);
-
         ingest(configuration, listeners);
-
-        reporter.shutdown();
 
     }
 
@@ -70,6 +59,15 @@ public class TweetStreamServiceImpl implements TweetStreamService {
         }
 
         Stream twitterStream = null;
+
+        ConsoleReporter reporter = new ConsoleReporter(Metrics.defaultRegistry(), System.out, new MetricPredicate() {
+            @Override
+            public boolean matches(MetricName name, Metric metric) {
+                return name.getName().contains("AllTopicsMessagesPerSec");
+            }
+        });
+
+        reporter.start(30, TimeUnit.SECONDS);
 
         try {
 
@@ -92,6 +90,10 @@ public class TweetStreamServiceImpl implements TweetStreamService {
             }
 
             if (userIds == null && locations == null && phrases == null) {
+                if (log.isDebugEnabled()) {
+                    log.debug("listening to unfiltered sample stream");
+                }
+
                 twitterStream = twitter.streamingOperations().sample(listeners);
             } else {
                 FilterStreamParameters filterStreamParameters = new FilterStreamParameters();
@@ -120,6 +122,10 @@ public class TweetStreamServiceImpl implements TweetStreamService {
                     }
                 }
 
+                if (log.isDebugEnabled()) {
+                    log.debug("listening to filtered stream");
+                }
+
                 twitterStream = twitter.streamingOperations().filter(filterStreamParameters, listeners);
             }
 
@@ -136,6 +142,8 @@ public class TweetStreamServiceImpl implements TweetStreamService {
                 twitterStream.close();
             }
         }
+
+        reporter.shutdown();
     }
 
 
