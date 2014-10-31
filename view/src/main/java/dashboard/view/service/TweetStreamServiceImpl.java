@@ -53,6 +53,15 @@ public class TweetStreamServiceImpl implements TweetStreamService {
             }
         });
 
+        reporter.start(30, TimeUnit.SECONDS);
+
+        ingest(configuration, listeners);
+
+        reporter.shutdown();
+
+    }
+
+    private void ingest(Configuration configuration, List listeners) {
         Integer durationInMinutes = configuration.getDuration();
         Integer durationInMilliseconds = durationInMinutes * 60 * 1000;
 
@@ -61,7 +70,6 @@ public class TweetStreamServiceImpl implements TweetStreamService {
         }
 
         Stream twitterStream = null;
-
 
         try {
 
@@ -112,11 +120,8 @@ public class TweetStreamServiceImpl implements TweetStreamService {
                     }
                 }
 
-                reporter.start(30, TimeUnit.SECONDS);
-
                 twitterStream = twitter.streamingOperations().filter(filterStreamParameters, listeners);
             }
-
 
             Thread.sleep(durationInMilliseconds);
 
@@ -130,11 +135,7 @@ public class TweetStreamServiceImpl implements TweetStreamService {
             if (twitterStream != null) {
                 twitterStream.close();
             }
-
-            reporter.shutdown();
-
         }
-
     }
 
 
