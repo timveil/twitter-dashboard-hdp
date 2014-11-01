@@ -1,18 +1,12 @@
 <div class="bs-callout bs-callout-warning bg-warning">
   <h4>Be Careful!</h4>
 
-  <p>The Twitter Stream will remain open for fixed period of time as specified by the lifespan entered below. Given the amount of data that will be consumed, take care to ensure that your server configuration can handle the load.</p>
+  <p>The Twitter Stream will remain open until you manually stop it. Given the amount of data that will be consumed, take care to ensure that your server configuration can handle the load.</p>
 
   <p>For more information see <a href="https://dev.twitter.com/streaming/overview/request-parameters#track">Twitter Developer Documentation</a></p>
 </div>
 
-
-<form name="configForm" ng-controller="ConfigController as configCtrl" ng-submit="configForm.$valid && captureTweets(config)" novalidate>
-
-  <div class="form-group">
-    <label for="duration" class="control-label">Twitter Stream Lifespan</label>
-    <input type="number" min="1" required class="form-control" id="duration" ng-model="config.duration" placeholder="Lifespan of Twitter Stream in minutes ">
-  </div>
+<form name="configForm" ng-controller="ConfigController as configCtrl" novalidate>
 
   <div class="form-group">
     <label for="users" class="control-label">Users to Follow</label>
@@ -34,6 +28,14 @@
 
   <hr/>
 
-  <button type="submit" class="btn btn-primary">Capture Twitter Data</button>
+  <button type="button" class="btn btn-default btn-lg" ng-click="startIngest(config)">
+    <span class="glyphicon glyphicon-play"></span> Start
+  </button>
+
+  &nbsp;
+
+  <button type="button" class="btn btn-danger btn-lg" ng-click="stopIngest(config)">
+    <span class="glyphicon glyphicon-stop"></span> Stop
+  </button>
 
 </form>

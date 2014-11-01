@@ -11,21 +11,22 @@ import com.yammer.metrics.core.MetricPredicate;
 import com.yammer.metrics.reporting.ConsoleReporter;
 import dashboard.common.kafka.TweetStreamListener;
 import dashboard.view.model.Configuration;
+import dashboard.view.model.IngestStatus;
 import kafka.javaapi.producer.Producer;
 import kafka.producer.ProducerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.social.twitter.api.FilterStreamParameters;
 import org.springframework.social.twitter.api.Stream;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Service;
 
-import java.text.NumberFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class TweetStreamServiceImpl implements TweetStreamService {
@@ -38,112 +39,154 @@ public class TweetStreamServiceImpl implements TweetStreamService {
     @Autowired
     private Twitter twitter;
 
+    private Stream stream;
+
+    private Producer<String, Tweet> producer;
+
+    private AtomicReference<IngestStatus> status = new AtomicReference<>(new IngestStatus(false));
+
+    private ConsoleReporter reporter;
+
+
     @Override
-    @Async
-    public void ingest(Configuration configuration) {
+    public IngestStatus startIngest(Configuration configuration) {
 
-        Producer<String, Tweet> producer = new Producer<>(config);
+        IngestStatus ingestStatus = status.get();
 
-        List listeners = ImmutableList.of(new TweetStreamListener(producer));
+        if (!ingestStatus.isRunning()) {
 
-        ingest(configuration, listeners);
+            log.info("starting ingest");
+
+            producer = new Producer<>(config);
+
+            List listeners = ImmutableList.of(new TweetStreamListener(producer));
+
+            ingest(configuration, listeners);
+
+            ingestStatus.setRunning(true);
+            ingestStatus.setStarted(new Date());
+            status.set(ingestStatus);
+
+            if (reporter == null) {
+                reporter = new ConsoleReporter(Metrics.defaultRegistry(), System.out, new MetricPredicate() {
+                    @Override
+                    public boolean matches(MetricName name, Metric metric) {
+                        return name.getName().contains("AllTopicsMessagesPerSec");
+                    }
+                });
+            }
+
+            reporter.start(30, TimeUnit.SECONDS);
+
+        } else {
+            log.warn("ingest is already started!");
+        }
+
+        return ingestStatus;
 
     }
 
+    @Override
+    public IngestStatus stopIngest() {
+
+        IngestStatus ingestStatus = status.get();
+
+        if (ingestStatus.isRunning()) {
+
+            log.info("stopping ingest");
+
+            stream.close();
+            producer.close();
+
+            if (reporter != null) {
+                reporter.shutdown();
+            }
+
+            ingestStatus.setRunning(false);
+            ingestStatus.setStarted(null);
+            status.set(ingestStatus);
+
+        } else {
+            log.warn("ingest is not started!");
+        }
+
+        return ingestStatus;
+    }
+
+    @Override
+    public IngestStatus ingestStatus() {
+        return status.get();
+    }
+
+    /**
+     * // first time hit capture
+     * start capture and wait;
+     * <p/>
+     * // user hist capture again for first is finished
+     * finish first and start second
+     */
+
     private void ingest(Configuration configuration, List listeners) {
-        Integer durationInMinutes = configuration.getDuration();
-        Integer durationInMilliseconds = durationInMinutes * 60 * 1000;
 
-        if (log.isDebugEnabled()) {
-            log.debug("app will ingest twitter data for " + NumberFormat.getNumberInstance().format(durationInMilliseconds) + " milliseconds or " + durationInMinutes + " minutes!");
+
+        List<String> userIds = null;
+
+        if (!Strings.isNullOrEmpty(configuration.getUsers())) {
+            userIds = Splitter.on(",").trimResults().omitEmptyStrings().splitToList(configuration.getUsers());
         }
 
-        Stream twitterStream = null;
+        List<String> locations = null;
 
-        ConsoleReporter reporter = new ConsoleReporter(Metrics.defaultRegistry(), System.out, new MetricPredicate() {
-            @Override
-            public boolean matches(MetricName name, Metric metric) {
-                return name.getName().contains("AllTopicsMessagesPerSec");
-            }
-        });
+        if (!Strings.isNullOrEmpty(configuration.getLocations())) {
+            locations = Splitter.on(",").trimResults().omitEmptyStrings().splitToList(configuration.getLocations());
+        }
 
-        reporter.start(30, TimeUnit.SECONDS);
+        List<String> phrases = null;
 
-        try {
+        if (!Strings.isNullOrEmpty(configuration.getPhrases())) {
+            phrases = Splitter.on(",").trimResults().omitEmptyStrings().splitToList(configuration.getPhrases());
+        }
 
-            List<String> userIds = null;
-
-            if (!Strings.isNullOrEmpty(configuration.getUsers())) {
-                userIds = Splitter.on(",").trimResults().omitEmptyStrings().splitToList(configuration.getUsers());
-            }
-
-            List<String> locations = null;
-
-            if (!Strings.isNullOrEmpty(configuration.getLocations())) {
-                locations = Splitter.on(",").trimResults().omitEmptyStrings().splitToList(configuration.getLocations());
-            }
-
-            List<String> phrases = null;
-
-            if (!Strings.isNullOrEmpty(configuration.getPhrases())) {
-                phrases = Splitter.on(",").trimResults().omitEmptyStrings().splitToList(configuration.getPhrases());
-            }
-
-            if (userIds == null && locations == null && phrases == null) {
-                if (log.isDebugEnabled()) {
-                    log.debug("listening to unfiltered sample stream");
-                }
-
-                twitterStream = twitter.streamingOperations().sample(listeners);
-            } else {
-                FilterStreamParameters filterStreamParameters = new FilterStreamParameters();
-
-                if (userIds != null) {
-                    for (String userId : userIds) {
-                        filterStreamParameters.follow(Integer.parseInt(userId));
-                    }
-                }
-
-                if (phrases != null) {
-                    for (String phrase : phrases) {
-                        filterStreamParameters.track(phrase);
-                    }
-                }
-
-                if (locations != null) {
-                    List<List<String>> partitions = Lists.partition(locations, 4);
-
-                    for (List<String> location : partitions) {
-                        filterStreamParameters.addLocation(
-                                Float.parseFloat(location.get(0)),
-                                Float.parseFloat(location.get(1)),
-                                Float.parseFloat(location.get(2)),
-                                Float.parseFloat(location.get(3)));
-                    }
-                }
-
-                if (log.isDebugEnabled()) {
-                    log.debug("listening to filtered stream");
-                }
-
-                twitterStream = twitter.streamingOperations().filter(filterStreamParameters, listeners);
-            }
-
-            Thread.sleep(durationInMilliseconds);
-
-        } catch (InterruptedException e) {
-            log.error("stream thread interrupted...", e);
-        } finally {
+        if (userIds == null && locations == null && phrases == null) {
             if (log.isDebugEnabled()) {
-                log.debug("closing stream");
+                log.debug("listening to unfiltered sample stream");
             }
 
-            if (twitterStream != null) {
-                twitterStream.close();
+            stream = twitter.streamingOperations().sample(listeners);
+        } else {
+            FilterStreamParameters filterStreamParameters = new FilterStreamParameters();
+
+            if (userIds != null) {
+                for (String userId : userIds) {
+                    filterStreamParameters.follow(Integer.parseInt(userId));
+                }
             }
+
+            if (phrases != null) {
+                for (String phrase : phrases) {
+                    filterStreamParameters.track(phrase);
+                }
+            }
+
+            if (locations != null) {
+                List<List<String>> partitions = Lists.partition(locations, 4);
+
+                for (List<String> location : partitions) {
+                    filterStreamParameters.addLocation(
+                            Float.parseFloat(location.get(0)),
+                            Float.parseFloat(location.get(1)),
+                            Float.parseFloat(location.get(2)),
+                            Float.parseFloat(location.get(3)));
+                }
+            }
+
+            if (log.isDebugEnabled()) {
+                log.debug("listening to filtered stream");
+            }
+
+            stream = twitter.streamingOperations().filter(filterStreamParameters, listeners);
         }
 
-        reporter.shutdown();
     }
 
 
