@@ -28,14 +28,18 @@
 
   <hr/>
 
-  <button type="button" class="btn btn-default btn-lg" ng-click="startIngest(config)">
+  <button type="button" class="btn btn-default btn-lg" ng-click="startIngest()">
     <span class="glyphicon glyphicon-play"></span> Start
   </button>
 
   &nbsp;
 
-  <button type="button" class="btn btn-danger btn-lg" ng-click="stopIngest(config)">
+  <button type="button" class="btn btn-danger btn-lg" ng-click="stopIngest()">
     <span class="glyphicon glyphicon-stop"></span> Stop
   </button>
+
+  <pre>running = {{ingestStatus.running}}</pre>
+  <pre>running = {{ingestStatus.started | date}}</pre>
+
 
 </form>

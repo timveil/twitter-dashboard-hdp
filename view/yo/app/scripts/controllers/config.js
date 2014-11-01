@@ -1,26 +1,32 @@
 'use strict';
 
 angular.module('staticApp')
-  .controller('ConfigController', function ($scope, $element, $http) {
+  .controller('ConfigController', ['$scope', '$element', '$http', '$log', function ($scope, $element, $http, $log) {
 
     $scope.config = {};
 
-    $scope.master = {};
+    $scope.ingestStatus = {};
 
-    $scope.startIngest = function (newConfig) {
+    $scope.startIngest = function () {
 
-      $scope.master = angular.copy(newConfig);
+      $http.post('/rest/ingest/start', $scope.config).success(function (data, status, headers, config) {
+        $log.debug(data);
 
-      $http.post('/rest/ingest/start', $scope.master).success(function (data, status, headers, config) {
+        $scope.ingestStatus = data;
+
       });
 
     };
 
     $scope.stopIngest = function () {
 
-      $http.post('/rest/ingest/stop', $scope.master).success(function (data, status, headers, config) {
+      $http.post('/rest/ingest/stop', $scope.config).success(function (data, status, headers, config) {
+        $log.debug(data);
+
+        $scope.ingestStatus = data;
+
       });
 
     };
 
-  });
+  }]);

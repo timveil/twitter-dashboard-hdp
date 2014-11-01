@@ -342,6 +342,15 @@ module.exports = function (grunt) {
     'htmlmin'
   ]);
 
+  grunt.registerTask('build-dev', [
+    'clean:dist',
+    'wiredep',
+    'concurrent:dist',
+    'autoprefixer',
+    'copy:dist',
+    'filerev',
+  ]);
+
   grunt.registerTask('default', [
     'newer:jshint',
     'build'
