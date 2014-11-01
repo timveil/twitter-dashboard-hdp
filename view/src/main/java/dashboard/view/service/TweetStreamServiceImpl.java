@@ -100,6 +100,7 @@ public class TweetStreamServiceImpl implements TweetStreamService {
 
             if (reporter != null) {
                 reporter.shutdown();
+                reporter = null;
             }
 
             ingestStatus.setRunning(false);
