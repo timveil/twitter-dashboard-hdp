@@ -1,12 +1,12 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-echo DIR
+echo $DIR
 
-yum clean all 2>&1 /dev/null
-yum clean metadata 2>&1 /dev/null
-yum clean dbcache 2>&1 /dev/null
-yum makecache 2>&1 /dev/null
+yum clean all  > /dev/null 2>&1
+yum clean metadata  > /dev/null 2>&1
+yum clean dbcache  > /dev/null 2>&1
+yum makecache  > /dev/null 2>&1
 
 ./step-1-install-ant.sh
 ./step-2-install-maven.sh
