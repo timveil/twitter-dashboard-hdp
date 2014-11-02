@@ -24,7 +24,7 @@ echo ""
 echo "$(tput setaf 2)##### Starting Kafka $(tput sgr 0)"
 echo ""
 
-nohup /opt/kafka/latest/bin/kafka-server-start.sh /opt/kafka/latest/config/server.properties&
+nohup /opt/kafka/latest/bin/kafka-server-start.sh /opt/kafka/latest/config/server.properties &> kafka.out&
 sleep 10
 
 echo ""
