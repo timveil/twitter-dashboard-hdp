@@ -24,7 +24,7 @@ echo ""
 
 tar xzf kafka_2.9.2-0.8.1.1.tgz
 ln -s kafka_2.9.2-0.8.1.1 latest
-rm -rf kafka_-*.tgz
+rm -rf kafka_*.tgz
 
 echo ""
 echo "$(tput setaf 2)##### Finished installing Kafka $(tput sgr 0)"

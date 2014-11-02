@@ -24,14 +24,14 @@ echo ""
 echo "$(tput setaf 2)##### Starting Kafka $(tput sgr 0)"
 echo ""
 
-service kafka start
+nohup /opt/kafka/latest/bin/kafka-server-start.sh /opt/kafka/latest/config/server.properties&
 sleep 10
 
 echo ""
 echo "$(tput setaf 2)##### Attempting to create Kafka topic $(tput sgr 0)"
 echo ""
 
-/usr/lib/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic tweets
+/opt/kafka/latest/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic tweets
 
 echo ""
 echo "$(tput setaf 2)##### Building and deploying Storm topology $(tput sgr 0)"
