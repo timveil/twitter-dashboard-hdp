@@ -348,7 +348,8 @@ module.exports = function (grunt) {
     'concurrent:dist',
     'autoprefixer',
     'copy:dist',
-    'filerev',
+    'cdnify',
+    'filerev'
   ]);
 
   grunt.registerTask('default', [
