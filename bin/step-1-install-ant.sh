@@ -1,5 +1,8 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo DIR
+
 echo ""
 echo "$(tput setaf 2)######################################### $(tput sgr 0)"
 echo "$(tput setaf 2)###### Step 1 - Install Ant $(tput sgr 0)"
