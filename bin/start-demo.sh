@@ -3,6 +3,8 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo $DIR
 
+source ~/.bashrc
+
 echo ""
 echo "$(tput setaf 2)##### Starting Solr $(tput sgr 0)"
 echo ""
