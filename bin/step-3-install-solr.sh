@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-echo DIR
+echo $DIR
 
 echo ""
 echo "$(tput setaf 2)######################################### $(tput sgr 0)"
@@ -40,9 +40,9 @@ echo ""
 echo "$(tput setaf 2)##### Downloading and installing Solr $(tput sgr 0)"
 echo ""
 
-wget -nv http://apache.mirrors.hoobly.com/lucene/solr/4.10.1/solr-4.10.1.tgz
-tar xzf solr-4.10.1.tgz
-ln -s solr-4.10.1 latest
+wget -nv http://www.interior-dsgn.com/apache/lucene/solr/4.10.2/solr-4.10.2.tgz
+tar xzf solr-4.10.2.tgz
+ln -s solr-4.10.2 latest
 rm -rf solr-*.tgz
 
 echo ""
@@ -62,7 +62,7 @@ cp -r /opt/solr/latest/example/solr/collection1/conf/admin-*.html /opt/solr/late
 rm -rf /opt/solr/latest/hdp/solr/tweets/core.properties
 ENDCOMMANDS
 
-cp solrconfig.xml /opt/solr/latest/hdp/solr/tweets/conf
+cp $DIR/solrconfig.xml /opt/solr/latest/hdp/solr/tweets/conf
 
 echo ""
 echo "$(tput setaf 2)##### Remove conflicting jars $(tput sgr 0)"

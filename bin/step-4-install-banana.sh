@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-echo DIR
+echo $DIR
 
 echo ""
 echo "$(tput setaf 2)######################################### $(tput sgr 0)"
@@ -36,7 +36,6 @@ sed -i 's/logstash_logs/tweets/g' /opt/banana/latest/src/config.js
 
 cd /opt/banana/latest/src/app/dashboards
 rm -rf *.json
-mv default-ts.json default.json
 cp $DIR/default.json /opt/banana/latest/src/app/dashboards
 
 echo ""

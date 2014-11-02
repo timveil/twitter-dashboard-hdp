@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-echo DIR
+echo $DIR
 
 echo ""
 echo "$(tput setaf 2)##### Starting Solr $(tput sgr 0)"

@@ -1,12 +1,28 @@
 #!/bin/bash
 
+echo ""
+echo "$(tput setaf 2)######################################### $(tput sgr 0)"
+echo "$(tput setaf 2)###### Step 0 - Installing everything $(tput sgr 0)"
+echo "$(tput setaf 2)######################################### $(tput sgr 0)"
+echo ""
+
+
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo $DIR
+
+echo ""
+echo "$(tput setaf 2)##### Cleaning up YUM $(tput sgr 0)"
+echo ""
 
 yum clean all  > /dev/null 2>&1
 yum clean metadata  > /dev/null 2>&1
 yum clean dbcache  > /dev/null 2>&1
 yum makecache  > /dev/null 2>&1
+
+echo ""
+echo "$(tput setaf 2)##### Calling install scripts... $(tput sgr 0)"
+echo ""
 
 ./step-1-install-ant.sh
 ./step-2-install-maven.sh
