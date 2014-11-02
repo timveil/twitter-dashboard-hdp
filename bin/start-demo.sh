@@ -23,6 +23,7 @@ echo "$(tput setaf 2)##### Starting Kafka $(tput sgr 0)"
 echo ""
 
 service kafka start
+sleep 10
 
 echo ""
 echo "$(tput setaf 2)##### Attempting to create Kafka topic $(tput sgr 0)"
