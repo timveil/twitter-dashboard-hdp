@@ -1,5 +1,8 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo DIR
+
 yum clean all 2>&1 /dev/null
 yum clean metadata 2>&1 /dev/null
 yum clean dbcache 2>&1 /dev/null

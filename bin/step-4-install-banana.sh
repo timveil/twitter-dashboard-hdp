@@ -1,5 +1,8 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo DIR
+
 echo ""
 echo "$(tput setaf 2)######################################### $(tput sgr 0)"
 echo "$(tput setaf 2)###### Step 4 - Install Banana $(tput sgr 0)"
@@ -32,13 +35,9 @@ sed -i 's/localhost/sandbox.hortonworks.com/g' /opt/banana/latest/src/config.js
 sed -i 's/logstash_logs/tweets/g' /opt/banana/latest/src/config.js
 
 cd /opt/banana/latest/src/app/dashboards
-ls | grep -v 'default-ts.json' | xargs rm
+rm -rf *.json
 mv default-ts.json default.json
-sed -i 's/New Time Series Dashboard/Twitter Dashboard/g' /opt/banana/latest/src/app/dashboards/default.json
-sed -i 's/event_timestamp/createdAt/g' /opt/banana/latest/src/app/dashboards/default.json
-sed -i 's/localhost/sandbox.hortonworks.com/g' /opt/banana/latest/src/app/dashboards/default.json
-sed -i 's/collection1/tweets/g' /opt/banana/latest/src/app/dashboards/default.json
-sed -i 's/message/screenName/g' /opt/banana/latest/src/app/dashboards/default.json
+cp $DIR/default.json /opt/banana/latest/src/app/dashboards
 
 echo ""
 echo "$(tput setaf 2)##### Building Banana with Ant $(tput sgr 0)"
