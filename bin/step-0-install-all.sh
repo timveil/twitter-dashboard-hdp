@@ -20,12 +20,6 @@ yum clean metadata  > /dev/null 2>&1
 yum clean dbcache  > /dev/null 2>&1
 yum makecache  > /dev/null 2>&1
 
-cd ~/
-
-git clone https://github.com/timveil/twitter-dashboard-hdp.git
-
-cd twitter-dashboard-hdp/bin
-
 ./step-1-install-ant.sh
 ./step-2-install-maven.sh
 
