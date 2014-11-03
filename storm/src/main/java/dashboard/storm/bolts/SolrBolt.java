@@ -64,10 +64,10 @@ public class SolrBolt extends BaseBasicBolt {
 
             for (HashTagEntity entity : tweet.getEntities().getHashTags()) {
 
-                if (StringUtils.isNotBlank(entity.getText())) {
+                if (StringUtils.isNotBlank(StringUtils.trimToNull(entity.getText()))) {
 
                     SolrInputDocument hashtagDoc = new SolrInputDocument();
-                    hashtagDoc.addField("id",  tweet.getId() + ":" + Type.hashtag.toString());
+                    hashtagDoc.addField("id", tweet.getId() + ":" + Type.hashtag.toString());
                     hashtagDoc.addField("doctype_s", Type.hashtag.toString());
                     hashtagDoc.addField("createdAt_dt", tweet.getCreatedAt());
                     hashtagDoc.addField("tag_s", entity.getText());
@@ -83,7 +83,7 @@ public class SolrBolt extends BaseBasicBolt {
 
             for (MentionEntity entity : tweet.getEntities().getMentions()) {
 
-                if (StringUtils.isNotBlank(entity.getScreenName())) {
+                if (StringUtils.isNotBlank(StringUtils.trimToNull(entity.getScreenName()))) {
 
                     SolrInputDocument mentionDoc = new SolrInputDocument();
                     mentionDoc.addField("id", tweet.getId() + ":" + Type.mention.toString());
@@ -98,7 +98,6 @@ public class SolrBolt extends BaseBasicBolt {
             }
 
         }
-
 
 
     }
