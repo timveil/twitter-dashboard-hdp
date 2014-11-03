@@ -80,7 +80,7 @@
                 <version>0.2</version>
                 <configuration>
                     <bowerInstallArgs>install --allow-root --no-color</bowerInstallArgs>
-                    <gruntBuildArgs>build-dev --no-color</gruntBuildArgs>
+                    <gruntBuildArgs>build --no-color</gruntBuildArgs>
                     <skipTests>true</skipTests>
                 </configuration>
                 <executions>
