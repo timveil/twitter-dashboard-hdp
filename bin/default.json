@@ -615,7 +615,7 @@
         {
           "error": false,
           "span": 12,
-          "editable": false,
+          "editable": true,
           "type": "table",
           "loadingEditor": false,
           "status": "Stable",
@@ -641,6 +641,7 @@
             "createdAt_dt",
             "doctype_s",
             "screenName_s",
+            "tag_s",
             "text_t",
             "language_s",
             "location_s"
