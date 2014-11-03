@@ -50,13 +50,13 @@ public class SolrBolt extends BaseBasicBolt {
         SolrInputDocument doc = new SolrInputDocument();
 
         doc.addField("id", tweet.getId() + ":" + Type.tweet.toString());
-        doc.addField("doctype", Type.tweet.toString());
-        doc.addField("createdAt", tweet.getCreatedAt());
-        doc.addField("text", tweet.getText());
-        doc.addField("language", tweet.getLanguageCode());
-        doc.addField("screenName", tweet.getUser().getScreenName());
-        doc.addField("source", tweet.getSource());
-        doc.addField("location", tweet.getUser().getLocation());
+        doc.addField("doctype_s", Type.tweet.toString());
+        doc.addField("createdAt_dt", tweet.getCreatedAt());
+        doc.addField("text_t", tweet.getText());
+        doc.addField("language_s", tweet.getLanguageCode());
+        doc.addField("screenName_s", tweet.getUser().getScreenName());
+        doc.addField("source_s", tweet.getSource());
+        doc.addField("location_s", tweet.getUser().getLocation());
 
         addDocument(doc);
 
@@ -68,9 +68,9 @@ public class SolrBolt extends BaseBasicBolt {
 
                     SolrInputDocument hashtagDoc = new SolrInputDocument();
                     hashtagDoc.addField("id",  tweet.getId() + ":" + Type.hashtag.toString());
-                    hashtagDoc.addField("doctype", Type.hashtag.toString());
-                    hashtagDoc.addField("createdAt", tweet.getCreatedAt());
-                    hashtagDoc.addField("text", entity.getText());
+                    hashtagDoc.addField("doctype_s", Type.hashtag.toString());
+                    hashtagDoc.addField("createdAt_dt", tweet.getCreatedAt());
+                    hashtagDoc.addField("text_t", entity.getText());
 
                     addDocument(hashtagDoc);
 
@@ -88,9 +88,9 @@ public class SolrBolt extends BaseBasicBolt {
                     SolrInputDocument mentionDoc = new SolrInputDocument();
                     mentionDoc.addField("id", tweet.getId() + ":" + Type.mention.toString());
                     mentionDoc.addField("doctype", Type.mention.toString());
-                    mentionDoc.addField("createdAt", tweet.getCreatedAt());
-                    mentionDoc.addField("screenName", entity.getScreenName());
-                    mentionDoc.addField("name", entity.getName());
+                    mentionDoc.addField("createdAt_dt", tweet.getCreatedAt());
+                    mentionDoc.addField("screenName_s", entity.getScreenName());
+                    mentionDoc.addField("name_s", entity.getName());
 
                     addDocument(mentionDoc);
 
