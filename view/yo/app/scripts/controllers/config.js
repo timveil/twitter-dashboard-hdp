@@ -29,4 +29,15 @@ angular.module('staticApp')
 
     };
 
+    var init = function () {
+      $http.post('/rest/ingest/status').success(function (data, status, headers, config) {
+        $log.debug(data);
+
+        $scope.ingestStatus = data;
+
+      });
+    };
+// and fire it after definition
+    init();
+
   }]);
