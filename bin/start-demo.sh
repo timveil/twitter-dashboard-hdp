@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-echo $DIR
+#echo $DIR
 
 source ~/.bashrc
 
@@ -11,7 +11,7 @@ echo ""
 
 cd ..
 
-nohup java -jar /opt/solr/latest/hdp/start.jar -Djetty.home=/opt/solr/latest/hdp -Dsolr.solr.home=/opt/solr/latest/hdp/solr &> solr.out&
+nohup java -jar /opt/solr/latest/hdp/start.jar -Djetty.home=/opt/solr/latest/hdp -Dsolr.solr.home=/opt/solr/latest/hdp/solr &> logs/solr.out&
 sleep 10
 
 echo ""
@@ -24,7 +24,7 @@ echo ""
 echo "$(tput setaf 2)##### Starting Kafka $(tput sgr 0)"
 echo ""
 
-nohup /opt/kafka/latest/bin/kafka-server-start.sh /opt/kafka/latest/config/server.properties &> kafka.out&
+nohup /opt/kafka/latest/bin/kafka-server-start.sh /opt/kafka/latest/config/server.properties &> logs/kafka.out&
 sleep 10
 
 echo ""

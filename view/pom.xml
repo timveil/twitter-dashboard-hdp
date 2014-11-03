@@ -79,7 +79,8 @@
                 <artifactId>yeoman-maven-plugin</artifactId>
                 <version>0.2</version>
                 <configuration>
-                    <bowerInstallArgs>install --allow-root</bowerInstallArgs>
+                    <bowerInstallArgs>install --allow-root --no-color</bowerInstallArgs>
+                    <gruntBuildArgs>build-dev --no-color</gruntBuildArgs>
                     <skipTests>true</skipTests>
                 </configuration>
                 <executions>

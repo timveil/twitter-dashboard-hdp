@@ -8,7 +8,7 @@
 
 
 <form name="configForm" ng-controller="ConfigController as configCtrl" novalidate>
-  <div class="alert alert-info" role="alert" ng-show="ingestStatus.running"><strong>Heads Up!</strong>  Twitter Ingest is has been running since {{ingestStatus.started | date : medium}}</div>
+  <div class="alert alert-info" role="alert" ng-show="ingestStatus.running"><strong>Heads Up!</strong>  Twitter Ingest is has been running since {{ingestStatus.started | date:'medium'}}</div>
 
   <div class="form-group">
     <label for="users" class="control-label">Users to Follow</label>

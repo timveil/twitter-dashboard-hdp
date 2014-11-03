@@ -9,7 +9,7 @@ echo ""
 
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-echo $DIR
+#echo $DIR
 
 echo ""
 echo "$(tput setaf 2)##### Cleaning up YUM $(tput sgr 0)"
