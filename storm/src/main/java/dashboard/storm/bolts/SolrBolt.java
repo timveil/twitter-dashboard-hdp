@@ -87,7 +87,7 @@ public class SolrBolt extends BaseBasicBolt {
 
                     SolrInputDocument mentionDoc = new SolrInputDocument();
                     mentionDoc.addField("id", tweet.getId() + ":" + Type.mention.toString());
-                    mentionDoc.addField("doctype", Type.mention.toString());
+                    mentionDoc.addField("doctype_s", Type.mention.toString());
                     mentionDoc.addField("createdAt_dt", tweet.getCreatedAt());
                     mentionDoc.addField("screenName_s", entity.getScreenName());
                     mentionDoc.addField("name_s", entity.getName());
