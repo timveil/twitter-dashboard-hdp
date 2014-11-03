@@ -34,8 +34,17 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="http://sandbox.hortonworks.com:8983/banana" target="_blank">Dashboard</a></li>
         <li class="active"><a href="#">Configuration</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Links <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="http://sandbox.hortonworks.com:8080">Ambari</a></li>
+            <li><a href="http://sandbox.hortonworks.com:8983/banana">Banana Dashboard</a></li>
+            <li><a href="http://sandbox.hortonworks.com:8000">HUE</a></li>
+            <li><a href="http://sandbox.hortonworks.com:8983/solr">Solr Dashboard</a></li>
+            <li><a href="http://sandbox.hortonworks.com:8744">Storm UI</a></li>
+          </ul>
+        </li>
         <li><a href="#">About</a></li>
       </ul>
     </div>
