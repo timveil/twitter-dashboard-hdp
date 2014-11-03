@@ -640,13 +640,14 @@
           "size": 10,
           "pages": 5,
           "offset": 0,
-          "sort": [],
+          "sort": ["createdAt"],
           "group": "default",
           "style": {
             "font-size": "9pt"
           },
           "overflow": "min-height",
           "fields": [
+            "createdAt",
             "doctype",
             "screenName",
             "text",
@@ -654,7 +655,7 @@
             "location"
           ],
           "highlight": [],
-          "sortable": false,
+          "sortable": true,
           "header": true,
           "paging": true,
           "field_list": true,
