@@ -336,7 +336,7 @@
             "custom": "&fq=doctype_s:hashtag"
           },
           "mode": "count",
-          "field": "text_t",
+          "field": "tag_s",
           "stats_field": "",
           "decimal_points": 0,
           "exclude": [],

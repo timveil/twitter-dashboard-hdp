@@ -70,7 +70,7 @@ public class SolrBolt extends BaseBasicBolt {
                     hashtagDoc.addField("id",  tweet.getId() + ":" + Type.hashtag.toString());
                     hashtagDoc.addField("doctype_s", Type.hashtag.toString());
                     hashtagDoc.addField("createdAt_dt", tweet.getCreatedAt());
-                    hashtagDoc.addField("text_t", entity.getText());
+                    hashtagDoc.addField("tag_s", entity.getText());
 
                     addDocument(hashtagDoc);
 
