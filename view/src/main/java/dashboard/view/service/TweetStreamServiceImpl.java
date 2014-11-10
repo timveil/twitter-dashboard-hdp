@@ -119,14 +119,6 @@ public class TweetStreamServiceImpl implements TweetStreamService {
         return status.get();
     }
 
-    /**
-     * // first time hit capture
-     * start capture and wait;
-     * <p/>
-     * // user hist capture again for first is finished
-     * finish first and start second
-     */
-
     private void ingest(Configuration configuration, List listeners) {
 
 

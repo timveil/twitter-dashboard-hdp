@@ -12,7 +12,7 @@ echo ""
 cd ..
 
 nohup java -jar /opt/solr/latest/hdp/start.jar -Djetty.home=/opt/solr/latest/hdp -Dsolr.solr.home=/opt/solr/latest/hdp/solr &> solr.out&
-sleep 10
+sleep 20
 
 echo ""
 echo "$(tput setaf 2)##### Creating 'tweets' core $(tput sgr 0)"
