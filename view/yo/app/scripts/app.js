@@ -9,6 +9,4 @@
  * Main module of the application.
  */
 angular
-  .module('staticApp', []);
-
-angular.module('myApp', ['angular-loading-bar'])
+  .module('staticApp', ['angular-loading-bar']);
