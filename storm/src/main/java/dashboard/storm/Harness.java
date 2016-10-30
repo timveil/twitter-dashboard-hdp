@@ -3,6 +3,7 @@ package dashboard.storm;
 import backtype.storm.Config;
 import backtype.storm.StormSubmitter;
 import backtype.storm.generated.AlreadyAliveException;
+import backtype.storm.generated.AuthorizationException;
 import backtype.storm.generated.InvalidTopologyException;
 import backtype.storm.topology.TopologyBuilder;
 import dashboard.storm.bolts.SolrBolt;
@@ -46,7 +47,6 @@ public class Harness {
 
         Config stormConfig = buildStormConfig(environment);
 
-
         stormConfig.put(KafkaBolt.KAFKA_BROKER_PROPERTIES, new HashMap<String, String>() {{
             put("metadata.broker.list", environment.getProperty("metadata.broker.list"));
             put("serializer.class", environment.getProperty("serializer.class"));
@@ -56,7 +56,7 @@ public class Harness {
 
         try {
             StormSubmitter.submitTopology(environment.getProperty("storm.topology.name"), stormConfig, topologyBuilder.createTopology());
-        } catch (AlreadyAliveException | InvalidTopologyException e) {
+        } catch (AlreadyAliveException | InvalidTopologyException | AuthorizationException e) {
             log.error("error building or submitting topology", e);
         }
 

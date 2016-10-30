@@ -19,7 +19,12 @@
 
     <properties>
         <slf4j.version>1.7.7</slf4j.version>
-        <spring.version>4.1.1.RELEASE</spring.version>
+        <spring.version>4.1.4.RELEASE</spring.version>
+        <storm.version>0.9.3.2.2.0.0-2041</storm.version>
+        <hive.version>0.14.0.2.2.0.0-2041</hive.version>
+        <kafka.version>0.8.1.2.2.0.0-2041</kafka.version>
+        <hadoop.version>2.6.0.2.2.0.0-2041</hadoop.version>
+
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -73,18 +78,8 @@
 
         <dependency>
             <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka_2.9.2</artifactId>
-            <version>0.8.1.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.zookeeper</groupId>
-                    <artifactId>zookeeper</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>kafka_2.10</artifactId>
+            <version>${kafka.version}</version>
         </dependency>
 
         <dependency>
